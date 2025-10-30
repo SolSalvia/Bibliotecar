@@ -1,4 +1,3 @@
-
 // utiliza http para usar get, post, delete, patch
 // y se conecta con el json-server
 
@@ -20,19 +19,17 @@ export interface Book {
 
 @Injectable({ providedIn: 'root' })
 export class BookService {
-  private base = 'http://localhost:3000/books'; // colección en json-server
+  private base = 'http://localhost:3000/books'; // 👈 plural, mismo puerto
 
   constructor(private http: HttpClient) {}
+
+  create(book: Omit<Book,'id'>): Observable<Book> {
+    return this.http.post<Book>(this.base, book); // 👈 POST a /books
+  }
 
   getAll(): Observable<Book[]> {
     return this.http.get<Book[]>(this.base);
   }
-
-  // CREO UN LIBRO SIN ID LO ASIGNA JSON-SERVER
-create(book: Omit<Book,'id'>) {
-  return this.http.post<Book>('http://localhost:3000/books', book);
-}
-
   update(id: number, patch: Partial<Book>): Observable<Book> {
     return this.http.patch<Book>(`${this.base}/${id}`, patch);
   }

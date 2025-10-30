@@ -1,102 +1,116 @@
+<div class="page-container">
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
 <!-- FORMULARIO DE ALTA -->
 <form [formGroup]="form" (ngSubmit)="submit()" style="display:grid;gap:12px;max-width:520px;margin-bottom:24px;">
   <h2>Alta de Libro</h2>
 
-  <label>ISBN
-  <input formControlName="isbn" placeholder="978..." />
-  <div *ngIf="f.isbn.invalid && (f.isbn.dirty || f.isbn.touched)">
-    <small *ngIf="f.isbn.errors?.['required']">Requerido</small>
-    <small *ngIf="f.isbn.errors?.['isbnInvalid']">ISBN inválido </small>
-    <small *ngIf="f.isbn.errors?.['isbnTaken']">El ISBN ya existe</small>
+  <!-- ISBN -->
+  <div class="form-field">
+    <label for="isbn">ISBN</label>
+    <input type="text" id="isbn" formControlName="isbn" placeholder="978..." />
+
+    @let isbn = f.isbn;
+
+    @if (isbn?.pending) {
+      <small>Verificando ISBN...</small>
+    }
+
+    @if (isbn && (isbn.dirty || isbn.touched) && isbn.invalid) {
+      @if (isbn.hasError('required')) {
+        <span class="errors">El ISBN es requerido</span>
+      } @else if (isbn.hasError('isbnInvalid')) {
+        <span class="errors">ISBN inválido (10 o 13 con dígito verificador)</span>
+      } @else if (isbn.hasError('isbnTaken')) {
+        <span class="errors">El ISBN ya existe</span>
+      }
+    }
   </div>
-  <small *ngIf="f.isbn.pending">Verificando ISBN...</small>
-</label>
 
-  <label>Título
-    <input type="text" id="title" formControlName="title" placeholder="Harry Potter y la piedra filosofal">
-    <div *ngIf="f.title.invalid && (f.title.dirty || f.title.touched)">
-      <small *ngIf="f.title.errors?.['required']">Requerido</small>
-    </div>
-  </label>
+  <!-- TÍTULO -->
+  <div class="form-field">
+    <label for="title">Título</label>
+    <input type="text" id="title" formControlName="title" placeholder="Harry Potter y la piedra filosofal" />
 
-  <label>Autor
-    <input type="text" id="author" formControlName="author" placeholder="J.K. Rowling">
-    <div *ngIf="f.author.invalid && (f.author.dirty || f.author.touched)">
-      <small *ngIf="f.author.errors?.['required']">Requerido</small>
-    </div>
-  </label>
-
-  <label>Categoría
-    <input type="text" id="category" formControlName="category" placeholder="Novela, Ciencia Ficción, Fantasía...">
-    <div *ngIf="f.category.invalid && (f.category.dirty || f.category.touched)">
-      <small *ngIf="f.category.errors?.['required']">Requerido</small>
-    </div>
-  </label>
-
- <label>Año de publicación
-  <input type="number" formControlName="publicationYear" [attr.max]="currentYear" min="1450" />
-  <div *ngIf="f.publicationYear.invalid && (f.publicationYear.dirty || f.publicationYear.touched)">
-    <small *ngIf="f.publicationYear.errors?.['yearInvalid']">Año inválido</small>
-    <small *ngIf="f.publicationYear.errors?.['yearOutOfRange'] as yr">
-      Debe estar entre {{ yr.min }} y {{ yr.max }}
-    </small>
-    <small *ngIf="f.publicationYear.errors?.['required']">Requerido</small>
+    @let title = f.title;
+    @if (title && (title.dirty || title.touched) && title.invalid) {
+      @if (title.hasError('required')) {
+        <span class="errors">El título es requerido</span>
+      }
+    }
   </div>
-</label>
 
-  <label>Copias totales
+  <!-- AUTOR -->
+  <div class="form-field">
+    <label for="author">Autor</label>
+    <input type="text" id="author" formControlName="author" placeholder="J.K. Rowling" />
+
+    @let author = f.author;
+    @if (author && (author.dirty || author.touched) && author.invalid) {
+      @if (author.hasError('required')) {
+        <span class="errors">El autor es requerido</span>
+      }
+    }
+  </div>
+
+  <!-- CATEGORÍA (opcional) -->
+  <div class="form-field">
+    <label for="category">Categoría</label>
+    <select id="category" formControlName="category">
+      <option value="" disabled selected>Seleccione una categoría</option>
+      @for (category of categories; track $index) {
+          <option [value]="category">{{ category }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- AÑO PUBLICACIÓN -->
+  <div class="form-field">
+    <label for="publicationYear">Año de publicación</label>
+    <input type="number" id="publicationYear" formControlName="publicationYear" [attr.max]="currentYear" min="1450" />
+
+    @let py = f.publicationYear;
+    @if (py && (py.dirty || py.touched) && py.invalid) {
+      @if (py.hasError('yearInvalid')) {
+        <span class="errors">Año inválido</span>
+      } @else if (py.hasError('yearOutOfRange')) {
+        <span class="errors">Debe estar entre {{ py.errors?.['yearOutOfRange'].min }} y {{ py.errors?.['yearOutOfRange'].max }}</span>
+      } @else if (py.hasError('required')) {
+        <span class="errors">Requerido</span>
+      }
+    }
+  </div>
+
+  <!-- COPIAS TOTALES -->
+  <div class="form-field">
+    <label for="totalCopies">Copias totales</label>
     <input type="number" id="totalCopies" formControlName="totalCopies" placeholder="1" min="1" />
-    <div *ngIf="f.totalCopies.invalid && (f.totalCopies.dirty || f.totalCopies.touched)">
-      <small *ngIf="f.totalCopies.errors?.['required']">Requerido</small>
-      <small *ngIf="f.totalCopies.errors?.['min']">Debe ser al menos 1</small>
-    </div>
-  </label>
 
-  <label style="display:flex;align-items:center;gap:8px;">
-    <input type="checkbox" formControlName="isActive" />
-    Activo
-  </label>
+    @let tc = f.totalCopies;
+    @if (tc && (tc.dirty || tc.touched) && tc.invalid) {
+      @if (tc.hasError('required')) {
+        <span class="errors">Las copias totales son requeridas</span>
+      } @else if (tc.hasError('min')) {
+        <span class="errors">Las copias totales deben ser al menos 1</span>
+      }
+    }
+  </div>
+
+  <!-- ACTIVO -->
+  <div class="form-field" style="display:flex;align-items:center;gap:8px;">
+    <input type="checkbox" id="isActive" formControlName="isActive" />
+    <label for="isActive" style="margin:0;">Activo</label>
+  </div>
 
   <div style="display:flex;gap:8px;margin-top:8px">
-    <button type="submit" [disabled]="form.invalid">Guardar</button>
+    <button type="submit" [disabled]="form.invalid || form.pending">Guardar</button>
     <button type="button" (click)="form.reset({publicationYear: currentYear, totalCopies: 1, isActive: true})">Limpiar</button>
   </div>
 </form>
 
-<!-- LISTADO / VISUALIZACIÓN -->
-<section>
-  <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-    <h2 style="margin:0;">Libros cargados</h2>
-    <button type="button" (click)="loadBooks()">Actualizar</button>
-  </div>
-
-  <div *ngIf="loadingList">Cargando libros...</div>
-  <div *ngIf="!loadingList && books.length === 0">No hay libros cargados.</div>
-
-  <table *ngIf="!loadingList && books.length > 0" border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; width:100%; max-width:900px;">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>ISBN</th>
-        <th>Título</th>
-        <th>Autor</th>
-        <th>Categoría</th>
-        <th>Año</th>
-        <th>Copias</th>
-        <th>Activo</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let b of books">
-        <td>{{ b.id }}</td>
-        <td>{{ b.isbn }}</td>
-        <td>{{ b.title }}</td>
-        <td>{{ b.author }}</td>
-        <td>{{ b.category }}</td>
-        <td>{{ b.publicationYear }}</td>
-        <td>{{ b.totalCopies }}</td>
-        <td>{{ b.isActive ? 'Sí' : 'No' }}</td>
-      </tr>
-    </tbody>
-  </table>
-</section>
+<!-- Mensaje de éxito -->
+<div *ngIf="successMessage" class="success-message">
+  {{ successMessage }}
+</div>
+  </form>
+</div>

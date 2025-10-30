@@ -1,1 +1,59 @@
-/* You can add global styles to this file, and also import other style files */
+/* === Paleta (gama café + acento coral) === */
+:root{
+  --bg: #f7f5f3;              /* fondo general muy claro */
+  --surface: #ffffff;         /* superficies blancas */
+  --card: #f1ebe8;            /* tarjetas claras */
+  --coffee-900: #3d261e;      /* café oscuro (headers/barras) */
+  --coffee-700: #5a3a2e;      /* café medio (bordes/hover) */
+  --coffee-100: #e9e1dd;      /* café muy claro (líneas/sutil) */
+
+  --accent: #ff7a45;          /* naranja coral (botones primarios) */
+  --accent-700: #e86533;      /* hover */
+  --accent-50: #ffe6db;       /* fondo suave para highlight */
+
+  --text-900: #2b2b2b;        /* texto principal */
+  --text-700: #534c47;        /* texto secundario */
+  --success-bg: #d4edda;
+  --success-border: #c3e6cb;
+  --success-text: #155724;
+  --error: #b00020;
+  --ring: #ffa67f;
+
+  --radius: 14px;
+  --shadow: 0 6px 18px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.06);
+  --shadow-soft: 0 3px 10px rgba(0,0,0,.06);
+}
+
+html, body{
+  background: var(--bg);
+  color: var(--text-900);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+}
+
+/* Botón base reutilizable */
+.btn{
+  appearance: none;
+  border: 0;
+  border-radius: calc(var(--radius) - 4px);
+  padding: 10px 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease;
+}
+.btn:disabled{ opacity:.6; cursor:not-allowed; }
+
+.btn.primary{
+  background: var(--accent);
+  color: #fff;
+  box-shadow: var(--shadow-soft);
+}
+.btn.primary:hover{ background: var(--accent-700); transform: translateY(-1px); }
+.btn.ghost{
+  background: transparent;
+  color: var(--coffee-700);
+  border: 1px solid var(--coffee-100);
+}
+.btn.ghost:hover{ background: var(--card); }
+
+/* Tipografías */
+h1,h2,h3{ color: var(--coffee-900); }
