@@ -1,4 +1,4 @@
-# Biblotecar
+# Bibliotecar
 <<<<<<< HEAD
 Página para que pueda utilizar un Biblotecario
 =======
