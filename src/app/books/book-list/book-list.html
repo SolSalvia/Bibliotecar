@@ -1,0 +1,36 @@
+<h1>Nuestra Biblioteca</h1>
+@let books = this.books();
+
+@if (isLoading()) {
+    <p>Cargando Libros...</p>
+} @else if (books && books.length > 0) {
+    <table>
+        <thead>
+            <tr>
+                <th>ISBN</th>
+                <th>Título</th>
+                <th>Autor</th>
+                <th>Categoría</th>
+                <th>Año de publicación</th>
+                <th>Sinopsis</th>
+                <th>Disponible en biblioteca</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (book of books; track book.ISBN) {
+                <tr>
+                    <td>{{ book.ISBN }}</td>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.category }}</td>
+                    <td>{{ book.publicationYear }}</td>
+                    <td>{{ book.synopsis }}</td>
+                    <td>{{ book.available ? 'Sí' : 'No' }}</td>
+                    <td><button (click)="navigateToDetails(book.ISBN!)">Ver más</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+} @else {
+    <p>No hay libros cargados...</p>
+}
