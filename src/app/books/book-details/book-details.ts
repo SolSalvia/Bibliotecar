@@ -11,14 +11,15 @@ import { Book } from '../book';
   templateUrl: './book-details.html',
   styleUrl: './book-details.css'
 })
+
 export class BookDetails {
 
   private readonly client = inject(BookClient);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
-  private readonly isbn = this.route.snapshot.paramMap.get('isbn');
+  private readonly id = this.route.snapshot.paramMap.get('id');
 
-  protected readonly bookSource = toSignal(this.client.getBookByISBN(this.isbn!));
+  protected readonly bookSource = toSignal(this.client.getBookById(this.id!));
   protected readonly book = linkedSignal(() => this.bookSource());
   protected readonly isEditing = signal(false);
 
@@ -33,7 +34,7 @@ export class BookDetails {
 
   deleteBook() {
     if (confirm('Desea borrar el libro?')) {
-      this.client.deleteBook(this.isbn!).subscribe(() => {
+      this.client.deleteBook(this.id!).subscribe(() => {
         alert('Libro borrado con éxito');
         this.router.navigateByUrl('/biblioteca');
       });

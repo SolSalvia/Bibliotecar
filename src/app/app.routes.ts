@@ -2,24 +2,13 @@ import { Routes } from '@angular/router';
 import { BookList } from './books/book-list/book-list';
 import { BookForm } from './books/book-form/book-form';
 import { BookDetails } from './books/book-details/book-details';
+import { LandingComponent } from './landing/landing';
 
 export const routes: Routes = [
-    {
-        path: '', redirectTo: 'biblioteca', pathMatch: 'full'
-    },
-    {
-        path: 'biblioteca', component: BookList,
-        title: 'Bibliotecar'
-    },
-    {
-        path: 'biblioteca/:isbn', component: BookDetails,
-        title: 'Detalles de Libro'
-    },
-    {
-        path: 'agregar-libros', component: BookForm,
-        title: "Agregar Libros"
-    },
-    {
-        path: '**', redirectTo: 'biblioteca'
-    }
+    { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+    { path: 'inicio', component: LandingComponent, title: 'Bienvenido a Bibliotecar' },
+    { path: 'biblioteca', component: BookList, title: 'Bibliotecar' },
+    { path: 'biblioteca/:id', component: BookDetails, title: 'Detalles de Libro' },
+    { path: 'agregar-libro', component: BookForm, title: "Agregar Libro" },
+    { path: '**', redirectTo: 'inicio' }
 ];

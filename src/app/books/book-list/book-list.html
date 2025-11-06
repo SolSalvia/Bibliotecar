@@ -1,4 +1,4 @@
-<h1>Nuestra Biblioteca</h1>
+<h1>Lista de Libros disponibles</h1>
 @let books = this.books();
 
 @if (isLoading()) {
@@ -7,6 +7,7 @@
     <table>
         <thead>
             <tr>
+                <th>id</th>
                 <th>ISBN</th>
                 <th>Título</th>
                 <th>Autor</th>
@@ -17,8 +18,9 @@
             </tr>
         </thead>
         <tbody>
-            @for (book of books; track book.ISBN) {
+            @for (book of books; track book.id) {
                 <tr>
+                    <td>{{ book.id }}</td>
                     <td>{{ book.ISBN }}</td>
                     <td>{{ book.title }}</td>
                     <td>{{ book.author }}</td>
@@ -26,7 +28,7 @@
                     <td>{{ book.publicationYear }}</td>
                     <td>{{ book.synopsis }}</td>
                     <td>{{ book.available ? 'Sí' : 'No' }}</td>
-                    <td><button (click)="navigateToDetails(book.ISBN!)">Ver más</button></td>
+                    <td><button (click)="navigateToDetails(book.id!)">Ver detalle</button></td>
                 </tr>
             }
         </tbody>

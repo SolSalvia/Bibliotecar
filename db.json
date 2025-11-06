@@ -1,14 +1,14 @@
 {
   "books": [
     {
-      "id": "6a17",
-      "isbn": "9783161484100",
-      "title": "Libro de prueba",
-      "author": "Autor",
+      "ISBN": "978123456",
+      "title": "Libro 1",
+      "author": "Autor 1",
       "category": "Novela",
-      "publicationYear": 2024,
-      "totalCopies": 3,
-      "isActive": true
+      "publicationYear": 2025,
+      "synopsis": "Sinopsis 2",
+      "available": true,
+      "id": "c6f7"
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { Component, effect, inject, input, output } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BookClient } from '../book-client';
 import { Book } from '../book';
 
@@ -14,41 +14,26 @@ export class BookForm {
   private readonly client = inject(BookClient);
   private readonly formBuilder = inject(FormBuilder);
 
+
   readonly isEditing = input(false);
   readonly book = input<Book>();
   readonly edited = output<Book>();
 
-  constructor() {
-    effect(() => {
-      if (this.isEditing() && this.book()) {
-        this.form.patchValue(this.book()!);
-      }
-    });
-  }
 
   protected readonly categories = [
-  'Novela',
-  'Ciencia Ficción',
-  'Fantasía',
-  'Historia',
-  'Biografía',
-  'Infantil',
-  'Educativo',
-  'Autoayuda',
-  'Tecnología'
-];
+    'Novela',
+    'Ciencia Ficción',
+    'Fantasía',
+    'Historia',
+    'Biografía',
+    'Infantil',
+    'Educativo',
+    'Autoayuda',
+    'Tecnología'
+  ];
 
-  /* protected readonly form = new FormGroup({
-    title: new FormControl(''),
-    duration: new FormControl(0),
-    genre: new FormControl(''),
-    ageRating: new FormControl(''),
-    synopsis: new FormControl(''),
-    onBillboard: new FormControl(false)
-  }); */
-
+ 
   protected readonly form = this.formBuilder.nonNullable.group({
-
     ISBN: ['', Validators.required],
     title: ['', Validators.required],
     author: ['', Validators.required],
@@ -58,53 +43,43 @@ export class BookForm {
     available: [false]
   });
 
-  get ISBN() {
-    return this.form.controls.ISBN;
+
+  constructor() {
+    effect(() => {
+      if (this.isEditing() && this.book()) {
+        this.form.patchValue(this.book()!);
+      }
+    });
   }
 
-  get title() {
-    return this.form.controls.title;
-  }
 
-  get author() {
-    return this.form.controls.author;
-  }
+  get ISBN() { return this.form.controls.ISBN; }
+  get title() { return this.form.controls.title; }
+  get author() { return this.form.controls.author; }
+  get category() { return this.form.controls.category; }
+  get publicationYear() { return this.form.controls.publicationYear; }
+  get synopsis() { return this.form.controls.synopsis; }
+  get available() { return this.form.controls.available; }
 
-  get category() {
-    return this.form.controls.category;
-  }
-
-  get publicationYear() {
-    return this.form.controls.publicationYear;
-  }
-
-  get synopsis() {
-    return this.form.controls.synopsis;
-  }
-
-  get available() {
-    return this.form.controls.available;
-  }
 
   handleSubmit() {
-
     if (this.form.invalid) {
-      alert("El formulario es inválido");
+      alert('El formulario es inválido');
       return;
     }
 
-    if (confirm('Desea confirmar los datos?')){
+    if (confirm('¿Desea confirmar los datos?')) {
       const book = this.form.getRawValue();
 
+      //Agregar nuevo libro
       if (!this.isEditing()) {
-
         this.client.addBook(book).subscribe(() => {
           alert('Libro agregado con éxito');
           this.form.reset();
         });
-      } else if (this.book()) {
-
-        this.client.updateBook(book, this.book()?.ISBN!).subscribe((b) => {
+      } 
+      else if (this.book()) {      //Editar libro 
+        this.client.updateBook(book, this.book()?.id!).subscribe((b) => {
           alert('Libro modificado con éxito');
           this.edited.emit(b);
         });

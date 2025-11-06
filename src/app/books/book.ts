@@ -1,4 +1,5 @@
 export interface Book {
+    id?: string, //Opcional porque lo completa json server
     ISBN: string,
     title: string,
     author: string,
@@ -7,6 +8,7 @@ export interface Book {
     synopsis: string,
     available: boolean
 }
+
 /*
 readonly categories: string[] = [
   'Novela',

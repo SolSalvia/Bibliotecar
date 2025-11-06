@@ -5,6 +5,7 @@ import { Book } from './book';
 @Injectable({
   providedIn: 'root'
 })
+
 export class BookClient {
 
   private readonly http = inject(HttpClient);
@@ -14,19 +15,19 @@ export class BookClient {
     return this.http.get<Book[]>(this.baseUrl);
   }
 
-  getBookByISBN(isbn: string | number) {
-    return this.http.get<Book>(`${this.baseUrl}/${isbn}`);
+  getBookById(id: string | number) {
+    return this.http.get<Book>(`${this.baseUrl}/${id}`);
   }
 
   addBook(book: Book) {
     return this.http.post<Book>(this.baseUrl, book);
   }
 
-  updateBook(book: Book, isbn: string | number) {
-    return this.http.put<Book>(`${this.baseUrl}/${isbn}`, book);
+  updateBook(book: Book, id: string | number) {
+    return this.http.put<Book>(`${this.baseUrl}/${id}`, book);
   }
 
-  deleteBook(isbn: string | number) {
-    return this.http.delete(`${this.baseUrl}/${isbn}`);
+  deleteBook(id: string | number) {
+    return this.http.delete(`${this.baseUrl}/${id}`);
   }
 }

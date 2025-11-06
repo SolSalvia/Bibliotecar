@@ -11,16 +11,14 @@ import { BookClient } from '../book-client';
   styleUrl: './book-list.css'
 })
 export class BookList {
-
-  // private readonly movieStore = inject(MovieStore);
-  // protected readonly movies = this.movieStore.getMovies();
   
   private readonly client = inject(BookClient);
   private readonly router = inject(Router);
   protected readonly books = toSignal(this.client.getBooks());
   protected readonly isLoading = computed(() => this.books() === undefined);
 
-  navigateToDetails(id: string | number) {
-    this.router.navigateByUrl(`libros/${id}`);
+  navigateToDetails(id: string) {
+    this.router.navigateByUrl(`biblioteca/${id}`);
   }
+  
 }
