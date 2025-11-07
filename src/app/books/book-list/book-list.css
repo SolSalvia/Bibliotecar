@@ -1,0 +1,126 @@
+:host { display:block; width:100%; }
+
+.wrap{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(to right, #49302b, #49302b);
+  width: 100%;
+}
+
+.list-card{
+  color-scheme: light;
+  width: 100%;
+  max-width: 1500px;
+  background: #fff;
+  border: 1px solid #b8b3b0;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: 32px 34px 40px;
+  display: grid;
+  gap: 18px;
+}
+
+/* titulo*/
+.list-card h1{
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #222;
+}
+
+.list-card p{
+  color:#55504e;
+  margin: 0;
+}
+
+/*TABLA */
+.list-card .table-scroll{
+  overflow: auto;
+}
+
+.list-card table{
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #b8b3b0;
+  border-radius: 12px; 
+  overflow: hidden; 
+}
+
+.list-card thead th{
+  background: #f7f6f6;
+  color: #222;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #b8b3b0;
+  white-space: nowrap;
+}
+
+.list-card tbody td{
+  padding: 12px 14px;
+  color: #222;
+  border-bottom: 1px solid #e9e7e6;
+  vertical-align: middle;
+}
+
+.list-card tbody tr:nth-child(even){
+  background: #faf9f8;
+}
+
+.list-card tbody tr:hover{
+  background: #f3f2f1;
+}
+
+.list-card thead th:nth-child(6),
+.list-card tbody td:nth-child(6){
+  text-align: center;
+}
+.list-card thead th:nth-child(8),
+.list-card tbody td:nth-child(8){
+  text-align: center;
+  font-weight: 600;
+  color:#55504e;
+}
+
+.list-card thead th:nth-child(9),
+.list-card tbody td:nth-child(9){
+  text-align: center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+.list-card td:last-child button{
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #ff7a45;
+  color: #fff;
+}
+
+.list-card td:last-child button:hover{
+  background: #e96a36;
+  transform: translateY(-1px);
+}
+
+/* SINOPSIS */
+.list-card tbody td:nth-child(7){
+  max-width: 420px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 640px){
+  .wrap{ align-items:flex-start; padding:16px; }
+  .list-card{ padding: 22px; }
+  .list-card table{ font-size: 14px; }
+  .list-card thead th, .list-card tbody td{ padding: 10px 12px; }
+}

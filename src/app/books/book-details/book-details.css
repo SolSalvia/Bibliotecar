@@ -1,0 +1,112 @@
+:host { display:block; width:100%; }
+
+/*FORM/LISTA */
+.wrap{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+  background: linear-gradient(to right, #49302b, #49302b); 
+  width: 100%;
+}
+
+/* DETALLE */
+.detail-card{
+  color-scheme: light;           
+  width: 100%;
+  max-width: 500px;              
+  background: #fff;
+  border: 1px solid #b8b3b0;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: 46px 50px 56px;
+  display: grid;
+  gap: 18px;
+}
+
+:host h2, :host h3, :host p{ margin:0; }
+
+.detail-card h2,
+:host > h2{
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #222;
+  margin: 0 0 12px;
+}
+
+.detail-card h3,
+:host h3{
+  font-size: 20px;
+  font-weight: 700;
+  color: #222;
+  margin: 6px 0 6px;
+}
+
+.detail-card p,
+:host p{
+  color:#55504e;                  
+  line-height: 1.45;
+}
+
+/* BOTONES  */
+.detail-card .actions,
+:host > div{                      
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.detail-card button:first-of-type,
+:host > div button:first-of-type{
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #ff7a45;           
+  color: #fff;
+}
+.detail-card button:first-of-type:hover,
+:host > div button:first-of-type:hover{
+  background: #e96a36;
+  transform: translateY(-1px);
+}
+
+/* BORRAR */
+.detail-card button:last-of-type,
+:host > div button:last-of-type{
+  border: 1px solid #b8b3b0;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #f1efed;
+  color: #222;
+}
+.detail-card button:last-of-type:hover,
+:host > div button:last-of-type:hover{
+  background:#e8e6e4;
+}
+
+.detail-card button[disabled],
+:host button[disabled]{
+  opacity:.55;
+  cursor: not-allowed;
+  transform:none;
+}
+
+app-book-form{
+  display:block;
+  margin-top: 12px;
+}
+
+@media (max-width: 640px){
+  .wrap{ align-items:flex-start; padding:16px; }
+  .detail-card{ padding: 26px; }
+  .detail-card .actions{ flex-direction: column; }
+}

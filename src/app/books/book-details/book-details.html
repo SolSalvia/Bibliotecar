@@ -1,0 +1,39 @@
+@let book = this.book();
+
+@if (isEditing() && book) {
+  <app-book-form
+    [isEditing]="true"
+    [book]="book"
+    (edited)="handleEdit($event)">
+  </app-book-form>
+} @else {
+
+  @if (book) {
+    <div class="wrap">
+      <section class="detail-card">
+        <h2>Detalles del Libro "{{ book.title }}"</h2>
+
+        <p><strong>ID:</strong> {{ book.id }}</p>
+        <p><strong>ISBN:</strong> {{ book.ISBN }}</p>
+        <p><strong>Autor:</strong> {{ book.author }}</p>
+        <p><strong>Categoría:</strong> {{ book.category }}</p>
+        <p><strong>Año de publicación:</strong> {{ book.publicationYear }}</p>
+        <p><strong>Disponible en biblioteca:</strong> {{ book.available ? 'Sí' : 'No' }}</p>
+
+        @if (book.synopsis) {
+          <p><strong>Sinopsis:</strong> {{ book.synopsis }}</p>
+        } @else {
+          <p><strong>Sinopsis:</strong> No disponible</p>
+        }
+
+        <div class="actions">
+          <button (click)="toggleEdit()">Editar</button>
+          <button (click)="deleteBook()" [disabled]="isEditing()">Borrar</button>
+        </div>
+      </section>
+    </div>
+  } @else {
+    <p>No se encontró el libro</p>
+  }
+
+}
