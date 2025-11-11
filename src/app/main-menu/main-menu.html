@@ -1,0 +1,60 @@
+<div class="wrap">
+  <header class="hero">
+    <h1>Bienvenido/a, {{ this.username }} 👋</h1>
+    <p class="subtitle">Selecciona un módulo para comenzar a gestionar la biblioteca.</p>
+  </header>
+
+  <section class="grid">
+
+    @if (isAdmin === true) {
+    <!-- Usuarios -->
+    <article class="card">
+      <div class="card-body">
+        <h2>Gestión de Usuarios</h2>
+        <p>Administración de usuarios y sus permisos.</p>
+      </div>
+      <div class="actions">
+        <a routerLink="/users" class="btn btn-primary">Ver Lista</a>
+        <a routerLink="/users/new" class="btn btn-ghost">Agregar Usuario</a>
+      </div>
+    </article>
+    }     
+
+    <!-- Libros -->
+    <article class="card">
+      <div class="card-body">
+        <h2>Gestión de Libros</h2>
+        <p>Altas, bajas, modificaciones, búsqueda y listado de libros.</p>
+      </div>
+      <div class="actions">
+        <a routerLink="/biblioteca" class="btn btn-primary">Ver Lista</a>
+        <a routerLink="/agregar-libro" class="btn btn-ghost">Agregar Libro</a>
+        
+      </div>
+    </article>
+
+    <!-- Préstamos -->
+    <article class="card">
+      <div class="card-body">
+        <h2>Gestión de Préstamos</h2>
+        <p>Registrar préstamos, vencimientos y renovaciones.</p>
+      </div>
+      <div class="actions">
+        <a routerLink="/loans" class="btn btn-primary">Entrar</a>
+        <a routerLink="/loans/new" class="btn btn-ghost">Nuevo préstamo</a>
+      </div>
+    </article>
+
+    <!-- Devoluciones -->
+    <article class="card">
+      <div class="card-body">
+        <h2>Gestión de Devoluciones</h2>
+        <p>Registrar devoluciones y actualizar disponibilidad de libros.</p>
+      </div>
+      <div class="actions">
+        <a routerLink="/returns" class="btn btn-primary">Entrar</a>
+        <a routerLink="/returns/check" class="btn btn-ghost">Registrar devolución</a>
+      </div>
+    </article>
+  </section>
+</div>

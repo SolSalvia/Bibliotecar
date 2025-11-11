@@ -1,0 +1,47 @@
+nav {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: linear-gradient(to right, #3c2a25, #49302b);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+nav button {
+  background-color: #d9534f;  
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.6rem 1.2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.1s ease;
+  margin-left: 20px;
+}
+
+nav button:hover {
+  background-color: #c9302c;
+  transform: scale(1.05);
+}
+
+nav button:active {
+  transform: scale(0.98);
+}
+
+nav {
+  animation: fadeInDown 0.5s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,22 +1,22 @@
 {
   "books": [
     {
-      "id": "8446",
       "ISBN": "97856456564",
-      "title": "sdfsad",
-      "author": "sdafas",
+      "title": "Libro 1",
+      "author": "Autor 1",
       "category": "Novela",
       "publicationYear": 2021,
-      "synopsis": "sdfsd",
-      "available": false
+      "synopsis": "Sinopsis 1",
+      "available": false,
+      "id": "8446"
     },
     {
       "ISBN": "9784512321234",
-      "title": "sfdsfdsf",
-      "author": "fds",
+      "title": "Libro 2",
+      "author": "Autor 2",
       "category": "Fantasía",
       "publicationYear": 2019,
-      "synopsis": "j",
+      "synopsis": "Sinopsis 2",
       "available": false,
       "id": "8faf"
     },
@@ -30,5 +30,19 @@
       "synopsis": "Sherlock Holmes es un detective consultor ficticio, famoso por su aguda inteligencia, su habilidad para la observación y el razonamiento deductivo, que resuelve complejos crímenes en el Londres del siglo XIX y principios del XX. Las historias, creadas por Arthur Conan Doyle, suelen estar narradas por su fiel amigo y colega, el Dr. John Watson, quien lo ayuda a resolver misterios.",
       "available": true
     }
+  ],  
+
+  "users": [
+    {
+      "username": "admin", 
+      "password": "admin", 
+      "isAdmin": true 
+    },
+    {
+      "username": "SSalvia",
+      "password": "123456",
+      "isAdmin": false 
+    }
   ]
 }
+  

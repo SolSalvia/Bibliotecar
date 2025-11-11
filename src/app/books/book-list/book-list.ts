@@ -1,5 +1,4 @@
 import { Component, computed, inject } from '@angular/core';
-//import { MovieStore } from '../movie-store';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { BookClient } from '../book-client';
@@ -20,5 +19,5 @@ export class BookList {
   navigateToDetails(id: string) {
     this.router.navigateByUrl(`biblioteca/${id}`);
   }
-  
+
 }

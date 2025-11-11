@@ -1,0 +1,9 @@
+<nav>
+    @if (auth.isLoggedIn()) {
+        @if (path !== '/menu') {
+        <button (click)="goToMenu()">Volver al menú principal</button>
+        } @else {
+        <button (click)="logout()">Cerrar Sesión</button>
+        }
+    }
+</nav>

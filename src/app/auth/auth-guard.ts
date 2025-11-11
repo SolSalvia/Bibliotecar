@@ -1,0 +1,13 @@
+import { inject } from '@angular/core';
+import { CanActivateFn, CanDeactivateFn, Router } from '@angular/router';
+import { AuthService } from './auth-service';
+import { MainMenuComponent } from '../main-menu/main-menu'; // 👈 ajustá la ruta si cambia
+
+export const authGuard: CanActivateFn = (route, state) => {
+  const auth = inject(AuthService);
+  const router = inject(Router);
+  if (auth.isLoggedIn()) {
+    return true;
+  }
+  return router.createUrlTree(['/login']);
+};

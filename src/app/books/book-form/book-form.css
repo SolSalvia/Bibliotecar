@@ -10,6 +10,26 @@
 }
 form { margin-inline: auto; }                 
 
+/* BOTON VOLVER AL MENU PRINCIPAL */
+.return {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+.return .btn {
+  background: #ff7f50;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s;
+}
+.return .btn:hover {
+  background: #ff6a33;
+  transform: translateY(-1px);
+}
 
 .wrap{
   min-height: 100vh;
