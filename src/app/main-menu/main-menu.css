@@ -1,10 +1,6 @@
 .wrap {
-  min-height: 100vh;
   background: #fff3ea;
-  display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 48px 24px;
 }
 
 .hero {
@@ -20,6 +16,11 @@
 .subtitle {
   color: #666;
   margin: 0;
+}
+
+.admin {
+  color: #ff7700;
+  font-weight: 800;
 }
 
 .grid {
@@ -47,11 +48,37 @@
 }
 
 .card-body h2 {
-  margin: 0 0 6px;
-  font-size: 1.15rem;
+  margin: 0 0 20px;
+  font-size: 1.30rem;
   color: #2e2e2e;
 }
 .card-body p {
+  margin: 0;
+  color: #555;
+}
+
+.card-users {
+  background: #fff;
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(0,0,0,.06);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 35px;
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+
+.card-users:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(0,0,0,.08);
+}
+
+.card-users-body h2 {
+  margin: 0 0 6px;
+  font-size: 1.30rem;
+  color: #ff7700;
+}
+.card-users-body p {
   margin: 0;
   color: #555;
 }

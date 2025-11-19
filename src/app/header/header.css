@@ -2,11 +2,18 @@ nav {
   width: 100%;
   box-sizing: border-box;
   display: flex;
-  justify-content: flex-end;
+  flex-wrap: wrap;          /* permite que los elementos bajen en móviles */
+  justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background: linear-gradient(to right, #3c2a25, #49302b);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  background: #49302b;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  animation: fadeInDown 0.5s ease-out;
+}
+
+nav img {
+  max-height: 80px;       /* altura máxima relativa */
+  height: auto;
 }
 
 nav button {
@@ -31,17 +38,25 @@ nav button:active {
   transform: scale(0.98);
 }
 
-nav {
-  animation: fadeInDown 0.5s ease-out;
+nav button.logout-button {
+  background-color: #9d1515;  
 }
 
-@keyframes fadeInDown {
-  from {
-    opacity: 0;
-    transform: translateY(-15px);
+/* MEDIA QUERY PARA MOVILES */
+@media (max-width: 768px) {
+  nav {
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+
+  nav img {
+    max-height: 50px;  /* reducir tamaño de logos */
+    margin: 5px 0;
+  }
+
+  nav button {
+    margin: 8px 0 0 0; /* separar botones verticalmente */
+    width: 100%;       /* opcional: botón ancho completo */
   }
 }

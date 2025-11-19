@@ -15,6 +15,9 @@ export class LoginComponent {
   private readonly router = inject(Router);
   private readonly fb = inject(FormBuilder);
 
+  protected capsLockOn = false;
+  protected showPassword = false;
+
   protected readonly form = this.fb.nonNullable.group({
     username: ['', Validators.required],
     password: ['', Validators.required]
@@ -24,8 +27,7 @@ export class LoginComponent {
     this.auth.logout(); 
   }
 
-  login () {
-    
+  login() {
     if (this.form.invalid) {
       alert('Formulario Inválido');
       return;
@@ -33,9 +35,22 @@ export class LoginComponent {
 
     const { username, password } = this.form.getRawValue();
 
-    this.auth.login(username, password);
-    if (this.auth.isLoggedIn()) {
-      this.router.navigateByUrl('/menu');
+    const ok = this.auth.login(username, password);
+
+    if (!ok) {
+      alert('Usuario o contraseña incorrectos');
+      return;
     }
+
+    this.router.navigateByUrl('/menu');
   }
+
+  checkCapsLock(event: KeyboardEvent) {
+    this.capsLockOn = event.getModifierState && event.getModifierState('CapsLock');
+  }
+
+  togglePassword() {
+    this.showPassword = !this.showPassword;
+  }  
+
 }

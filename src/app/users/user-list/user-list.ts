@@ -17,7 +17,7 @@ export class UserList {
   protected readonly isLoading = computed(() => this.users() === undefined);
     
   navigateToDetails(id: string) {
-    this.router.navigateByUrl(`/users/${id}`);
+    this.router.navigateByUrl(`/usuarios/${id}`);
   }
 
 }

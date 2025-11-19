@@ -1,0 +1,30 @@
+@let bookReturn = this.bookReturn();
+
+@if (isEditing() && bookReturn) {
+  <app-bookReturn-form [isEditing]="true" [bookReturn]="bookReturn" (edited)="handleEdit($event)">
+  </app-bookReturn-form>
+} @else {
+
+  @if (bookReturn) {
+    <div class="wrap">
+      <section class="detail-card">
+        <h2>Detalles de la Devolución</h2>
+
+        @let book = this.bookReturnClient.getBookByLoanId(bookReturn.loanId)!;
+
+        <p><strong>ID:</strong> {{ bookReturn.id }}</p>
+        <p><strong>ID de Préstamo:</strong> {{ bookReturn.loanId }}</p>
+        <p><strong>Libro:</strong> {{ book ? book.title : 'Cargando...' }}</p>
+        <p><strong>Fecha de Devolución:</strong> {{ bookReturn.returnDate }}</p>
+
+        <div class="actions">
+          <button (click)="toggleEdit()">Editar</button>
+          <button (click)="deleteBookReturn()" [disabled]="isEditing()">Borrar</button>
+        </div>
+      </section>
+    </div>
+  } @else {
+    <p>No se encontró la devolución</p>
+  }
+
+}

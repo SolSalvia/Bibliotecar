@@ -50,12 +50,10 @@
 
   <!-- Pre Footer Section -->
   <section class="pre-footer">
-    <h2>¿Todavía no te registraste?</h2>
-    <button [routerLink]="['/login']" [queryParams]="{ tab: 'register' }" class="btn-register">REGISTRATE AHORA</button>
-  </section>  
+    <h2>¿Te interesa nuestro producto?</h2>
+    <button class="btn-whatsapp" (click)="contactWhatsapp()">
+      <img src="WhatsApp.svg" alt="WhatsApp" class="whatsapp-icon-logo" />
+      CONTACTANOS</button>
+  </section>
 
-  <!-- Footer -->
-  <footer>
-    <p>&copy; 2025 BIBLIOTECAR. Todos los derechos reservados.</p>
-  </footer>
 </div>

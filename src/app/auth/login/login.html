@@ -1,20 +1,51 @@
-<div class="login-container">
-  <h2>Iniciar sesión</h2>
-<form [formGroup]="form" (ngSubmit)="login()">
+<div class="login-page">
+  <div class="wrap">
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <h2>Iniciar sesión</h2>
 
-    <div class="control">
+      <!-- Usuario -->
+      <div class="form-field">
         <label for="username">Nombre de usuario</label>
-        <input type="text" id="username" formControlName="username">
-    </div>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          placeholder="Ingrese el usuario..."
+          (keydown)="checkCapsLock($event)"
+          (keyup)="checkCapsLock($event)"
+        >
+      </div>
 
-    <div class="control">
+      <!-- Contraseña con botón mostrar/ocultar -->
+      <div class="form-field password-field">
         <label for="password">Contraseña</label>
-        <input type="password" id="password" formControlName="password">
-    </div>
+        <div class="password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="********"
+            (keydown)="checkCapsLock($event)"
+            (keyup)="checkCapsLock($event)"
+          >
+          <button type="button" class="toggle-btn" (click)="togglePassword()">
+            @if (showPassword) {
+              🔓
+            } @else {
+              🔒
+            }
+          </button>
+        </div>
+      </div>
 
-    <div class="actions">
-        <button type="submit">Ingresar</button>
-    </div>
+      @if (capsLockOn) {
+        <p class="caps-alert">⚠️ Mayúsculas activadas</p>
+      }
 
-</form>
+      <div class="form-actions">
+        <button type="reset">Limpiar formulario</button>
+        <button type="submit" [disabled]="form.invalid">Ingresar</button>
+      </div>
+    </form>
+  </div>
 </div>

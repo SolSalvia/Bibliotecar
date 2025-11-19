@@ -3,7 +3,7 @@ import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '../auth/auth-service';
 
 @Component({
-  selector: 'header',
+  selector: 'app-header',
   imports: [RouterLink, RouterLinkActive],
   templateUrl: './header.html',
   styleUrl: './header.css'
@@ -22,6 +22,11 @@ export class Header {
   goToMenu() {
     this.router.navigateByUrl('/menu');
   }
+
+  //VOLVER AL INICIO
+  goToLanding() {
+    this.router.navigateByUrl('/inicio');
+  }  
 
   get path(){
     return window.location.pathname;

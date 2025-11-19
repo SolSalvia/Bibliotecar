@@ -1,0 +1,32 @@
+@let user = this.User();
+
+@if (isEditing() && user) {
+  <app-user-form
+    [isEditing]="true"
+    [user]="user"
+    (edited)="handleEdit($event)">
+  </app-user-form>
+} @else {
+
+  @if (user) {
+    <div class="wrap">
+      <section class="detail-card">
+        <h2>Detalles del Usuario "{{ user.username }}"</h2>
+
+        <p><strong>ID:</strong> {{ user.id }}</p>
+        <p><strong>Nombre de usuario:</strong> {{ user.username }}</p>
+        <p><strong>Contraseña:</strong> ******** </p>
+        <p><strong>Administrador:</strong> {{ user.isAdmin ? 'Sí' : 'No' }}</p>
+
+        <div class="actions">
+          <button class="btn-primary" [disabled]="isAdminUser()" (click)="toggleEdit()" [class.disabled-button]="isAdminUser()">Editar</button>
+          <button class="btn-secondary" [disabled]="isAdminUser()" (click)="deleteUser()" [class.disabled-button]="isAdminUser()">Borrar</button>
+        </div>
+
+      </section>
+    </div>
+  } @else {
+    <p>No se encontró el usuario</p>
+  }
+
+}

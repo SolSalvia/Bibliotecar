@@ -1,48 +1,139 @@
 {
   "books": [
     {
-      "ISBN": "97856456564",
-      "title": "Libro 1",
-      "author": "Autor 1",
-      "category": "Novela",
-      "publicationYear": 2021,
-      "synopsis": "Sinopsis 1",
-      "available": false,
-      "id": "8446"
+      "ISBN": "978‑84‑08‑31446‑2",
+      "title": "El Principito",
+      "author": "Antoine de Saint-Exupéry",
+      "category": "Ficción / Infantil",
+      "publicationYear": 1943,
+      "synopsis": "Un niño que vive en otro planeta y sus reflexiones sobre la vida, la amistad y la responsabilidad.",
+      "available": true,
+      "id": "a1b2"
     },
     {
-      "ISBN": "9784512321234",
-      "title": "Libro 2",
-      "author": "Autor 2",
-      "category": "Fantasía",
-      "publicationYear": 2019,
-      "synopsis": "Sinopsis 2",
-      "available": false,
-      "id": "8faf"
+      "ISBN": "978-0-451-52493-5",
+      "title": "1984",
+      "author": "George Orwell",
+      "category": "Distopía / Ciencia ficción",
+      "publicationYear": 1949,
+      "synopsis": "Winston Smith vive bajo un régimen totalitario que lo vigila todo. Reflexiona sobre la libertad, la opresión y la verdad en un mundo controlado por el Partido y el Gran Hermano.",
+      "available": true,
+      "id": "b002"
     },
     {
-      "id": "f75e",
-      "ISBN": "978123444",
-      "title": "Sherlock Holmes",
-      "author": "Arthur Conan Doyle",
-      "category": "Ciencia Ficción",
-      "publicationYear": 1805,
-      "synopsis": "Sherlock Holmes es un detective consultor ficticio, famoso por su aguda inteligencia, su habilidad para la observación y el razonamiento deductivo, que resuelve complejos crímenes en el Londres del siglo XIX y principios del XX. Las historias, creadas por Arthur Conan Doyle, suelen estar narradas por su fiel amigo y colega, el Dr. John Watson, quien lo ayuda a resolver misterios.",
-      "available": true
+      "ISBN": "978-0-316-76948-0",
+      "title": "The Catcher in the Rye",
+      "author": "J. D. Salinger",
+      "category": "Ficción / Clásico",
+      "publicationYear": 1951,
+      "synopsis": "Historia de Holden Caulfield, un adolescente que reflexiona sobre la autenticidad, la soledad y la transición a la adultez.",
+      "available": true,
+      "id": "c4d5"
+    },
+    {
+      "ISBN": "978-84-9122-100-5",
+      "title": "Las brujas",
+      "author": "Roald Dahl",
+      "category": "Fantasía / Infantil",
+      "publicationYear": 1983,
+      "synopsis": "Un niño y su abuela descubren que hay brujas disfrazadas de mujeres normales y deben enfrentarlas.",
+      "available": true,
+      "id": "d6e7"
+    },
+    {
+      "ISBN": "978-0-06-112008-4",
+      "title": "To Kill a Mockingbird",
+      "author": "Harper Lee",
+      "category": "Ficción / Jurídica / Clásico",
+      "publicationYear": 1960,
+      "synopsis": "A través de la inocencia de la joven Scout Finch, se aborda el racismo, la injusticia y la moral en un pequeño pueblo del sur de Estados Unidos.",
+      "available": true,
+      "id": "b003"
+    },
+    {
+      "ISBN": "978-84-9105-192-1",
+      "title": "Don Quijote de la Mancha",
+      "author": "Miguel de Cervantes Saavedra",
+      "category": "Ficción / Clásico",
+      "publicationYear": 1605,
+      "synopsis": "El hidalgo Don Quijote pierde la razón tras leer muchos libros de caballería y sale a recorrer el mundo con su escudero Sancho Panza, buscando aventuras y justicia.",
+      "available": true,
+      "id": "b004"
+    },
+    {
+      "ISBN": "978-0-7432-7356-5",
+      "title": "The Great Gatsby",
+      "author": "F. Scott Fitzgerald",
+      "category": "Ficción / Clásico",
+      "publicationYear": 1925,
+      "synopsis": "En la Nueva York de los años 20, Nick Carraway narra la vida del enigmático Jay Gatsby, su amor por Daisy Buchanan y el sueño americano.",
+      "available": true,
+      "id": "b005"
     }
-  ],  
-
+  ],
   "users": [
     {
-      "username": "admin", 
-      "password": "admin", 
-      "isAdmin": true 
+      "id": "d18f",
+      "username": "admin",
+      "password": "admin",
+      "isAdmin": true
     },
     {
-      "username": "SSalvia",
-      "password": "123456",
-      "isAdmin": false 
+      "id": "8e4c",
+      "username": "test",
+      "password": "test",
+      "isAdmin": false
+    }
+  ],
+  "loans": [
+    {
+      "id": "7979",
+      "userId": "d18f",
+      "bookId": "a1b2",
+      "startDate": "2025-11-17",
+      "endDate": "2025-11-17",
+      "isActive": false,
+      "clientName": "Stéfano López",
+      "clientEmail": "stefano.lopez.mdp@gmail.com",
+      "clientPhone": "2235061211",
+      "book": {
+        "ISBN": "978‑84‑08‑31446‑2",
+        "title": "El Principito",
+        "author": "Antoine de Saint-Exupéry",
+        "category": "Ficción / Infantil",
+        "publicationYear": 1943,
+        "synopsis": "Un niño que vive en otro planeta y sus reflexiones sobre la vida, la amistad y la responsabilidad.",
+        "available": false,
+        "id": "a1b2"
+      }
+    },
+    {
+      "id": "f3c4",
+      "userId": "d18f",
+      "bookId": "b002",
+      "startDate": "2025-11-17",
+      "endDate": "2025-11-17",
+      "isActive": true,
+      "clientName": "Sol Salvia",
+      "clientEmail": "solsalvia3@gmail.com",
+      "clientPhone": "2235411281",
+      "book": {
+        "ISBN": "978-0-451-52493-5",
+        "title": "1984",
+        "author": "George Orwell",
+        "category": "Distopía / Ciencia ficción",
+        "publicationYear": 1949,
+        "synopsis": "Winston Smith vive bajo un régimen totalitario que lo vigila todo. Reflexiona sobre la libertad, la opresión y la verdad en un mundo controlado por el Partido y el Gran Hermano.",
+        "available": false,
+        "id": "b002"
+      }
+    }
+  ],
+  "bookReturns": [
+    {
+      "id": "a14b",
+      "loanId": "7979",
+      "returnDate": "2025-11-17"
     }
   ]
 }
-  

@@ -1,81 +1,55 @@
-import { computed, Injectable, signal } from '@angular/core';
+import { Injectable, signal, inject, computed } from '@angular/core';
 import { UserClient } from '../users/user-client'; 
 import { User } from '../users/user';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class AuthService {
 
-  /*private readonly users: User[] = [
-    {
-      username: 'SSalvia',
-      password: '123456',
-      isAdmin: false,
-    },
-    {
-      username: 'admin',
-      password: 'admin',
-      isAdmin: true
-    }
-  ]*/
+  public readonly client = inject(UserClient);
 
-  private users: User[] = [];
-  private loaded = false;
+  // Usuario actualmente logueado (reactivo)
+  private readonly activeUser = signal<User | null>(null);
+  public readonly isLoggedIn = computed(() => this.activeUser() !== null);
 
-  private readonly activeUser = signal<User | undefined>(undefined);
-  public readonly isLoggedIn = computed(() => this.activeUser() !== undefined);
-  public readonly isAdmin = computed(() => this.activeUser()?.isAdmin);
+  // lista de usuarios reactiva (opcional si ya lo hiciste)
+  readonly users = signal<User[]>([]);
 
-  constructor(private userClient: UserClient) {
-    this.loadUsers(); // carga al iniciar
-  }
-
-  private loadUsers(): void {
-    this.userClient.getUsers().subscribe({
-      next: (list) => { this.users = list; this.loaded = true; },
-      error: (e)   => console.error('Error cargando usuarios:', e)
+  constructor() {
+    // Cargar usuarios una sola vez al iniciar
+    this.client.getUsers().subscribe(users => {
+      this.users.set(users);
     });
   }
-  
 
-  /*login(username: string, password: string) {
-    const user = this.users.find(u => u.username === username && u.password === password);
-    if (user) {
-      this.activeUser.set(user);
-    }
-  }*/
+  login(username: string, password: string) {
+    const found = this.users().find(
+      u => u.username === username && u.password === password
+    );
 
-  login(username: string, password: string): void {
-    if (!this.loaded && this.users.length === 0) {
-      this.userClient.getUsers().subscribe({
-        next: (list) => {
-          this.users = list; this.loaded = true;
-          this.tryLogin(username, password);
-        },
-        error: (e) => console.error('Error cargando usuarios en login:', e)
-      });
-      return;
+    if (found) {
+      this.activeUser.set(found);
+      return true;
     }
-    this.tryLogin(username, password);
+
+    return false;
   }
-
-  private tryLogin(username: string, password: string): void {
-    const user = this.users.find(u => u.username === username && u.password === password);
-    if (user) {
-      this.activeUser.set(user);
-      console.log('Sesión iniciada como', user.username);
-    } else {
-      console.warn('Usuario o contraseña incorrectos');
-    }
-  }    
 
   logout() {
-    this.activeUser.set(undefined);
+    this.activeUser.set(null);
   }
 
-  username(): string | undefined {
-    return this.activeUser()?.username;
+  username() {
+    return this.activeUser()?.username ?? null;
   }
+
+  //Función para cambiar Menú principal en caso de ser admin
+  isAdmin() {
+    return this.activeUser()?.isAdmin === true;
+  }
+
+  getActiveUser(): User | null {
+    return this.activeUser();
+  }  
+
 
 }

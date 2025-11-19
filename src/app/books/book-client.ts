@@ -15,6 +15,10 @@ export class BookClient {
     return this.http.get<Book[]>(this.baseUrl);
   }
 
+  getAvailableBooks() {
+    return this.http.get<Book[]>(`${this.baseUrl}/?available=true`);
+  }  
+
   getBookById(id: string | number) {
     return this.http.get<Book>(`${this.baseUrl}/${id}`);
   }

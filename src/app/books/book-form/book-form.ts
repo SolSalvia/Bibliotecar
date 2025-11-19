@@ -21,6 +21,17 @@ export class BookForm {
   readonly book = input<Book>();
   readonly edited = output<Book>();
 
+  //Estas variables son para el GUARD de formulario,
+  //Ya que hay inputs que no manejamos 100% con el form (ej: el autocomplet de libros)
+  //Nuestra lógica de negocio define que siempre se debe preguntar al salir del formulario
+  public confirmOnLeave = false;
+  public formSubmitted = false;
+
+  ngOnInit(): void {
+    // Activamos la lógica de preguntar al salir aunque no haya cambios
+    this.confirmOnLeave = true;
+  }    
+
 
   protected readonly categories = [
     'Novela',
@@ -35,7 +46,7 @@ export class BookForm {
   ];
 
  
-  protected readonly form = this.formBuilder.nonNullable.group({
+  /*protected readonly form = this.formBuilder.nonNullable.group({
     ISBN: ['', Validators.required],
     title: ['', Validators.required],
     author: ['', Validators.required],
@@ -43,7 +54,61 @@ export class BookForm {
     publicationYear: ['', Validators.required],
     synopsis: [''],
     available: [false]
+  });*/
+
+  protected readonly form = this.formBuilder.nonNullable.group({
+    ISBN: [
+      '', 
+      [
+        Validators.required,
+        Validators.pattern(/^\d+-\d+-\d+-\d+-\d+$/)   // ISBN con 5 grupos
+      ]
+    ],
+    title: ['', Validators.required],
+    author: ['', Validators.required],
+    category: ['', Validators.required],
+    publicationYear: [
+      '',
+      [
+        Validators.required,
+        Validators.pattern(/^\d{4}$/)                // año de 4 dígitos
+      ]
+    ],
+    synopsis: [''],
+    available: [false]
   });
+
+  formatISBN(event: Event) {
+    const input = event.target as HTMLInputElement;
+  
+    // Solo números
+    let digits = input.value.replace(/\D/g, '');
+  
+    // Limitar a 13 dígitos
+    if (digits.length > 13) {
+      digits = digits.slice(0, 13);
+    }
+  
+    let formatted = '';
+  
+    // Grupos: 3 - 1 - 2 - 6 - 1
+    if (digits.length <= 3) {
+      formatted = digits;
+    } else if (digits.length <= 4) {
+      formatted = `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    } else if (digits.length <= 6) {
+      formatted = `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4)}`;
+    } else if (digits.length <= 12) {
+      formatted =
+        `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
+    } else {
+      formatted =
+        `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 12)}-${digits.slice(12)}`;
+    }
+  
+    this.form.controls.ISBN.setValue(formatted, { emitEvent: false });
+  }
+
 
 
   constructor() {
@@ -76,19 +141,23 @@ export class BookForm {
       return;
     }
 
-    if (confirm('¿Desea confirmar los datos?')) {
+    if (confirm('¿Desea confirmar el libro?')) {
+
+      this.formSubmitted = true;        
+
       const book = this.form.getRawValue();
 
       //Agregar nuevo libro
       if (!this.isEditing()) {
         this.client.addBook(book).subscribe(() => {
-          alert('Libro agregado con éxito');
+          alert('¡Libro agregado con éxito!');
           this.form.reset();
+          this.router.navigateByUrl('/biblioteca');
         });
       } 
       else if (this.book()) {      //Editar libro 
         this.client.updateBook(book, this.book()?.id!).subscribe((b) => {
-          alert('Libro modificado con éxito');
+          alert('¡Libro modificado con éxito!');
           this.edited.emit(b);
         });
       }

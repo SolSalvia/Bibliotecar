@@ -1,0 +1,43 @@
+<div class="wrap">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <h2>{{ isEditing() ? 'Editando Usuario' : 'Agregar Usuario' }}</h2>
+
+    <div class="form-field">
+      <label for="username">Nombre de usuario</label>
+      <input type="text" id="username" formControlName="username" placeholder="Ej: usuario123" (keydown)="checkCapsLock($event)" (keyup)="checkCapsLock($event)">
+      @if (username.hasError('required') && username.dirty) {
+        <span class="errors">El nombre de usuario es requerido</span>
+      }
+    </div>
+
+      <div class="form-field password-field">
+        <label for="password">Contraseña</label>
+        <div class="password-wrapper">
+          <input
+            [type]="showPassword ? 'text' : 'password'"
+            id="password"
+            formControlName="password"
+            placeholder="********"
+            (keydown)="checkCapsLock($event)"
+            (keyup)="checkCapsLock($event)"
+          >
+          <button type="button" class="toggle-btn" (click)="togglePassword()">
+            @if (showPassword) {
+              🔓
+            } @else {
+              🔒
+            }
+          </button>
+        </div>
+      </div>
+
+      @if (capsLockOn) {
+        <p class="caps-alert">⚠️ Mayúsculas activadas</p>
+      }
+
+    <div class="form-actions">
+      <button type="reset">Limpiar formulario</button>
+      <button type="submit" [disabled]="form.invalid">Enviar</button>
+    </div>
+  </form>
+</div>

@@ -8,17 +8,3 @@ export interface Book {
     synopsis: string,
     available: boolean
 }
-
-/*
-readonly categories: string[] = [
-  'Novela',
-  'Ciencia Ficción',
-  'Fantasía',
-  'Informática',
-  'Historia',
-  'Biografía',
-  'Infantil',
-  'Educativo',
-  'Autoayuda',
-  'Tecnología'
-];*/

@@ -1,0 +1,95 @@
+<div class="wrap">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+      <h2>{{ isEditing() ? 'Editando Préstamo' : 'Registrar Préstamo' }}</h2>
+
+      <div class="form-field">
+        <label for="bookSearch">Libro a prestar (sólo disponibles)</label>
+
+        <div class="combo">
+          <input 
+            type="text"
+            id="bookSearch"
+            [value]="bookSearch"
+            (input)="onBookSearch($event)"
+            (focus)="onBookFocus()"
+            (blur)="validateBookInput()"
+            placeholder="Buscar libro por título o ISBN"
+            autocomplete="off"
+          >
+
+          @if(showDropdown() && filteredBooks().length > 0) {
+            <ul class="dropdown">
+              @for(book of filteredBooks(); track $index) {
+                <li (mousedown)="selectBook(book)">
+                  {{ book.title }} — ISBN: {{ book.ISBN }}
+                </li>
+              }
+            </ul>
+          }
+        </div>
+
+        @if (bookId.hasError('required') && bookId.dirty) {
+          <span class="errors">El libro es requerido</span>
+        }
+      </div>
+
+      <div class="form-field">
+          <label for="startDate">Fecha de inicio</label>
+          <input type="date" id="startDate" formControlName="startDate">
+      </div>
+
+      <div class="form-field">
+          <label for="endDate">Fecha de devolución estimada</label>
+          <input type="date" id="endDate" formControlName="endDate">
+      </div>
+
+      @if (form.hasError('dateOrder') && form.dirty) {
+          <span class="errors">La fecha de inicio no puede ser mayor a la fecha de devolución estimada</span>
+      }    
+
+      <div class="form-field">
+          <label for="clientName">Nombre del cliente</label>
+          <input type="text" id="clientName" formControlName="clientName" placeholder="Ingrese el nombre del cliente">
+          @if (clientName.hasError('required') && clientName.dirty) {
+            <span class="errors">El nombre del cliente es requerido</span>
+          }
+          @if (clientName.hasError('minlength') && clientName.dirty) {
+            <span class="errors">El nombre del cliente debe tener al menos 3 caracteres</span>
+          }
+          @if (clientName.hasError('pattern') && clientName.touched) {
+            <span class="errors">Solo se permiten letras.</span>
+          }
+      </div>
+
+      <div class="form-field">
+          <label for="clientEmail">Correo electrónico del cliente</label>
+          <input type="text" id="clientEmail" formControlName="clientEmail" placeholder="Ingrese el correo electrónico del cliente">
+          @if (clientEmail.hasError('required') && clientEmail.dirty) {
+            <span class="errors">El correo electrónico del cliente es requerido</span>
+          }
+          @if (clientEmail.hasError('email') && clientEmail.dirty) {
+            <span class="errors">El correo electrónico no es válido</span>
+          }
+      </div>
+
+      <div class="form-field">
+          <label for="clientPhone">Teléfono del cliente</label>
+          <input type="text" id="clientPhone" formControlName="clientPhone" placeholder="Ingrese el teléfono del cliente">
+          @if (clientPhone.hasError('required') && clientPhone.dirty) {
+            <span class="errors">El teléfono del cliente es requerido</span>
+          }
+          @if (clientPhone.hasError('minlength') && clientPhone.dirty) {
+            <span class="errors">El teléfono del cliente debe tener al menos 7 caracteres</span>
+          }
+          @if (clientPhone.hasError('pattern') && clientPhone.touched) {
+            <span class="errors">Solo se permiten números.</span>
+          }
+      </div>
+
+      <div class="form-actions">
+          <button type="reset">Limpiar formulario</button>
+          <button type="submit" [disabled]="form.invalid">Enviar</button>
+      </div>
+      
+  </form>
+</div>

@@ -1,21 +1,23 @@
 <div class="wrap">
   <header class="hero">
-    <h1>Bienvenido/a, {{ this.username }} 👋</h1>
-    <p class="subtitle">Selecciona un módulo para comenzar a gestionar la biblioteca.</p>
+    <h1>Bienvenido/a, 
+      <span [ngClass]="{'admin': isAdmin}">{{ username }}</span> 👋
+    </h1>
+    <p class="subtitle">Seleccioná un módulo para comenzar a gestionar tu biblioteca.</p>
   </header>
 
   <section class="grid">
 
     @if (isAdmin === true) {
     <!-- Usuarios -->
-    <article class="card">
-      <div class="card-body">
-        <h2>Gestión de Usuarios</h2>
-        <p>Administración de usuarios y sus permisos.</p>
+    <article class="card-users">
+      <div class="card-users-body">
+        <h2>USUARIOS</h2>
+        <p>Administración de usuarios del sistema.</p>
       </div>
       <div class="actions">
-        <a routerLink="/users" class="btn btn-primary">Ver Lista</a>
-        <a routerLink="/users/new" class="btn btn-ghost">Agregar Usuario</a>
+        <a routerLink="/usuarios" class="btn btn-ghost">Ver Lista</a>
+        <a routerLink="/agregar-usuario" class="btn btn-primary">Agregar Usuario</a>
       </div>
     </article>
     }     
@@ -23,12 +25,12 @@
     <!-- Libros -->
     <article class="card">
       <div class="card-body">
-        <h2>Gestión de Libros</h2>
-        <p>Altas, bajas, modificaciones, búsqueda y listado de libros.</p>
+        <h2>LIBROS</h2>
+        <p>Actualizar y visualizar disponibilidad de libros en biblioteca.</p>
       </div>
       <div class="actions">
-        <a routerLink="/biblioteca" class="btn btn-primary">Ver Lista</a>
-        <a routerLink="/agregar-libro" class="btn btn-ghost">Agregar Libro</a>
+        <a routerLink="/biblioteca" class="btn btn-ghost">Ver Lista</a>
+        <a routerLink="/agregar-libro" class="btn btn-primary">Agregar Libro</a>
         
       </div>
     </article>
@@ -36,24 +38,24 @@
     <!-- Préstamos -->
     <article class="card">
       <div class="card-body">
-        <h2>Gestión de Préstamos</h2>
+        <h2>PRÉSTAMOS</h2>
         <p>Registrar préstamos, vencimientos y renovaciones.</p>
       </div>
       <div class="actions">
-        <a routerLink="/loans" class="btn btn-primary">Entrar</a>
-        <a routerLink="/loans/new" class="btn btn-ghost">Nuevo préstamo</a>
+        <a routerLink="/prestamos" class="btn btn-ghost">Ver Lista</a>
+        <a routerLink="/agregar-prestamo" class="btn btn-primary">Registrar Préstamo</a>
       </div>
     </article>
 
     <!-- Devoluciones -->
     <article class="card">
       <div class="card-body">
-        <h2>Gestión de Devoluciones</h2>
+        <h2>DEVOLUCIONES</h2>
         <p>Registrar devoluciones y actualizar disponibilidad de libros.</p>
       </div>
       <div class="actions">
-        <a routerLink="/returns" class="btn btn-primary">Entrar</a>
-        <a routerLink="/returns/check" class="btn btn-ghost">Registrar devolución</a>
+        <a routerLink="/devoluciones" class="btn btn-ghost">Ver Lista</a>
+        <a routerLink="/agregar-devolucion" class="btn btn-primary">Registrar Devolución</a>
       </div>
     </article>
   </section>

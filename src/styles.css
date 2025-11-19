@@ -1,56 +1,543 @@
-:root{
-  --bg: #f7f5f3;
-  --surface: #ffffff;
-  --card: #f1ebe8;
-  --coffee-900: #3d261e;
-  --coffee-700: #5a3a2e;
-  --coffee-100: #e9e1dd;
-
-  --accent: #ff7a45;
-  --accent-700: #e86533;
-  --accent-50: #ffe6db;
-
-  --text-900: #2b2b2b;
-  --text-700: #534c47;
-  --success-bg: #d4edda;
-  --success-border: #c3e6cb;
-  --success-text: #155724;
-  --error: #b00020;
-  --ring: #ffa67f;
-
-  --radius: 14px;
-  --shadow: 0 6px 18px rgba(0,0,0,.08), 0 2px 6px rgba(0,0,0,.06);
-  --shadow-soft: 0 3px 10px rgba(0,0,0,.06);
-}
-
 html, body{
-  background: var(--bg);
-  color: var(--text-900);
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  height: 100%;
 }
 
-.btn{
-  appearance: none;
-  border: 0;
-  border-radius: calc(var(--radius) - 4px);
-  padding: 10px 16px;
+/* ================================
+   GLOBAL BACKGROUND & LAYOUT
+================================ */
+body {
+  margin: 0;
+  background: #a76b3d00;
+  font-family: system-ui, sans-serif;
+}
+
+.wrap {
+  min-height: 70vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+
+.login-page .wrap {
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ================================
+   FORM CONTAINER
+================================ */
+form {
+  margin-inline: auto;
+  width: 100%;
+  max-width: 720px;
+  background: #fff3ea;
+  border: 1px solid #b8b3b0;
+  border-radius: 14px;
+  padding: 46px 50px 56px;
+  display: grid;
+  gap: 18px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  color-scheme: light;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+/* TITLE */
+form h2 {
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #222;
+}
+
+/* ================================
+   FORM FIELDS
+================================ */
+.form-field {
+  display: grid;
+  gap: 6px;
+}
+
+.form-field label {
+  font-weight: 600;
+  color: #55504e;
+}
+
+/* ================================
+   Inputs unificados para toda la app
+================================ */
+input[type="text"],
+input[type="number"],
+input[type="date"],
+input[type="password"],
+textarea,
+select {
+  width: 100%;
+  height: 40px;            /* altura uniforme */
+  padding: 8px 12px;       /* padding consistente */
+  border: 1px solid #b8b3b0;
+  border-radius: 6px;       /* mismo border-radius que login */
+  background: #ffffff;
+  color: #222;
+  caret-color: #222;
+  font-size: 1rem;          /* tamaño de texto consistente */
+  box-sizing: border-box;   /* padding incluido en ancho */
+  transition: border-color .2s, box-shadow .2s, background-color .2s;
+}
+
+/* Ajuste de textarea para altura variable */
+textarea {
+  resize: vertical;
+  min-height: 110px;
+  height: auto;            /* para que no se vea chiquita */
+  padding: 8px 12px;
+}
+
+/* Focus */
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #ff7a45;
+  box-shadow: 0 0 0 3px rgba(255,122,69,.25);
+  outline: none;
+}
+
+/* Placeholder */
+input::placeholder,
+textarea::placeholder {
+  color: #8c8885;
+}
+
+/* Checkbox available */
+#available {
+  width: 18px;
+  height: 18px;
+  accent-color: #ff7a45;
+}
+
+/* ================================
+   ERROR MESSAGES
+================================ */
+.errors {
+  color: #e53935;
+  font-size: 0.9rem;
+  margin-top: 2px;
+  font-weight: 500;
+  display: block;
+}
+
+/* ================================
+   FORM ACTION BUTTONS
+================================ */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.form-actions button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: transform .06s ease, box-shadow .2s ease, background-color .2s ease;
+  transition: background-color .2s, transform .1s, opacity .2s;
 }
-.btn:disabled{ opacity:.6; cursor:not-allowed; }
 
-.btn.primary{
-  background: var(--accent);
+/* SUBMIT BUTTON */
+.form-actions button[type="submit"] {
+  background: #ff7a45;
   color: #fff;
-  box-shadow: var(--shadow-soft);
 }
-.btn.primary:hover{ background: var(--accent-700); transform: translateY(-1px); }
-.btn.ghost{
-  background: transparent;
-  color: var(--coffee-700);
-  border: 1px solid var(--coffee-100);
-}
-.btn.ghost:hover{ background: var(--card); }
 
-h1,h2,h3{ color: var(--coffee-900); }
+.form-actions button[type="submit"]:hover:not(:disabled) {
+  background: #e96a36;
+  transform: translateY(-1px);
+}
+
+/* Disabled submit button */
+.form-actions button[type="submit"]:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* RESET BUTTON */
+.form-actions button[type="reset"] {
+  background: #f1efed;
+  color: #222;
+  border: 1px solid #b8b3b0;
+}
+
+.form-actions button[type="reset"]:hover {
+  background: #e8e6e4;
+}
+
+/* ================================
+   RETURN BUTTON (MENÚ PRINCIPAL)
+================================ */
+.return {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.return .btn {
+  background: #ff7f50;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s;
+}
+
+.return .btn:hover {
+  background: #ff6a33;
+  transform: translateY(-1px);
+}
+
+.form-backAction button {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+}
+
+/* ================================
+   DROPDOWN
+
+/* .combo es el contenedor relativo para el dropdown */
+.combo {
+  position: relative;
+  width: 100%;
+}
+
+/* input dentro del combo */
+.combo input {
+  width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #b8b3b0;
+  background: #ffffff;
+  box-sizing: border-box;
+}
+
+/* dropdown posicionado debajo del input */
+.combo .dropdown {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #b8b3b0;
+  border-radius: 10px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  max-height: 260px;
+  overflow-y: auto;
+  z-index: 9999;
+  padding: 6px 0;
+  margin: 0;
+  list-style: none;
+}
+
+/* items */
+.combo .dropdown li {
+  padding: 10px 14px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.combo .dropdown li:hover {
+  background: #f3f2f1;
+}
+
+/* mensaje vacío */
+.combo .dropdown .empty {
+  padding: 10px 14px;
+  color: #777;
+}
+
+/* --- LISTA / CARD CONTENEDOR --- */
+.list-card{
+  color-scheme: light;
+  width: 100%;
+  max-width: 1500px;
+  background: #fff3ea;
+  border: 1px solid #b8b3b0;
+  border-radius: 14px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  padding: 32px 34px 40px;
+  display: grid;
+  gap: 18px;
+}
+
+/* TÍTULO */
+.list-card h1{
+  margin: 0 0 12px;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  color: #222;
+}
+
+.list-card p{
+  color:#55504e;
+  margin: 0;
+}
+
+/* --- TABLA --- */
+.list-card .table-scroll{
+  overflow: auto;
+}
+
+.list-card table{
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border: 1px solid #b8b3b0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.list-card thead th{
+  background: #f7f6f6;
+  color: #222;
+  font-weight: 700;
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid #b8b3b0;
+  white-space: nowrap;
+}
+
+.list-card tbody td{
+  padding: 12px 14px;
+  color: #222;
+  border-bottom: 1px solid #e9e7e6;
+  vertical-align: middle;
+}
+
+.list-card tbody tr:nth-child(even){
+  background: #faf9f8;
+}
+
+.list-card tbody tr:hover{
+  background: #f3f2f1;
+}
+
+/* SINOPSIS con ellipsis */
+.list-card tbody td:nth-child(7){
+  max-width: 420px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Alineaciones especiales */
+.list-card thead th:nth-child(6),
+.list-card tbody td:nth-child(6){
+  text-align: center;
+}
+.list-card thead th:nth-child(8),
+.list-card tbody td:nth-child(8){
+  text-align: center;
+  font-weight: 600;
+  color:#55504e;
+}
+.list-card thead th:nth-child(9),
+.list-card tbody td:nth-child(9){
+  text-align: center;
+  width: 1%;
+  white-space: nowrap;
+}
+
+/* Botones dentro de lista */
+.list-card td:last-child button{
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #ff7a45;
+  color: #fff;
+}
+.list-card td:last-child button:hover{
+  background: #e96a36;
+  transform: translateY(-1px);
+}
+
+
+/* --- DETALLE / CARD --- */
+.detail-card{
+  max-width: 700px;
+  padding: 38px 42px 48px;
+  border-radius: 18px;
+  background: #fff8f3;
+  border: 1px solid #e3d7cf;
+  box-shadow: 0 18px 32px rgba(0,0,0,.12);
+  display: grid;
+  gap: 16px;
+}
+
+/* TITULOS Y TEXTO */
+.detail-card h2{
+  font-size: 28px;  
+  font-weight: 800;
+  text-align: center; 
+  margin-bottom: 10px;
+  letter-spacing: 0.4px;
+  color: #1e1e1e;
+}
+
+.detail-card p{
+  margin: 0;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #ffffffa7;
+  border: 1px solid #f0e7df;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 16px;
+  line-height: 1.45;
+  color: #333;
+}
+
+.detail-card p + p{
+  margin-top: 8px;
+}
+
+.detail-card p strong{
+  min-width: 170px;
+  color: #44403c;
+  font-weight: 600;
+}
+
+/* BOTONES */
+.detail-card .actions{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.detail-card .btn-primary {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #ff7a45;
+  color: #fff;
+}
+.detail-card .btn-primary:hover {
+  background: #e96a36;
+  transform: translateY(-1px);
+}
+
+.detail-card .btn-secondary {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #9f0000;
+  color: #fff;
+}
+.detail-card .btn-secondary:hover {
+  background: #a80909;
+  transform: translateY(-1px);
+}
+
+
+/* BACK BUTTON (Al final, no lo usaremos)*/
+.back-action {
+  display: flex;
+  justify-content: center;
+  margin-top: -100px; 
+  margin-bottom: 60px;
+}
+
+.btn-back {
+  border: none;
+  border-radius: 10px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color .2s, transform .1s, opacity .2s;
+  background: #5e5e5e;
+  color: #fdfdfd;
+}
+
+.btn-back:hover {
+  background: #696969;
+  transform: translateY(-1px);
+}
+
+
+/* DESHABILITADO */
+.detail-card button[disabled]{
+  opacity: .55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ================================
+   RESPONSIVE
+================================ */
+@media (max-width: 640px) {
+  .wrap {
+    align-items: flex-start;
+    padding: 16px;
+  }
+
+  form {
+    padding: 26px;
+    width: 100%;        /* asegurar que ocupe todo el ancho disponible */
+    max-width: 100%;    /* eliminar límite estricto para móviles */
+  }
+
+  form h2 {
+    font-size: 22px;    /* más pequeño para pantallas chicas */
+  }
+
+  .form-field {
+    gap: 4px;           /* reducir espacio entre label y input */
+  }
+
+  input[type="text"],
+  input[type="number"],
+  input[type="date"],
+  textarea,
+  select {
+    padding: 10px;      /* padding más pequeño */
+    font-size: 0.9rem;  /* fuente más pequeña */
+  }
+
+  .form-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .form-actions button {
+    width: 100%;        /* botones ocupan todo el ancho en móviles */
+  }
+
+  .combo .dropdown { 
+    max-height: 180px; 
+    top: calc(100% + 4px); 
+  }  
+}

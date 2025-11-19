@@ -1,0 +1,51 @@
+<div class="wrap">
+  <form [formGroup]="form" (ngSubmit)="handleSubmit()">
+    <h2>{{ isEditing() ? 'Editando Devolución' : 'Registrar Devolución' }}</h2>
+
+    <!-- Selección de préstamo ( solo activos) -->
+    <div class="form-field">
+      <label for="loanSearch">Préstamo a devolver</label>
+
+      <div class="combo">
+        <input
+          type="text"
+          id="loanSearch"
+          [value]="loanSearch"
+          (input)="onLoanSearch($event)"
+          (focus)="onLoanFocus()"
+          (blur)="validateLoanInput()"
+          placeholder="Buscar préstamo por ID, ISBN o título del libro"
+          autocomplete="off"
+        >
+
+        @if (showDropdown() && filteredLoans().length > 0) {
+          <ul class="dropdown">
+            @for (loanItem of filteredLoans(); track $index) {
+              <li (mousedown)="selectLoan(loanItem)">
+                {{ formatLoan(loanItem) }}
+              </li>
+            }
+          </ul>
+        }
+      </div>
+
+      @if (loanId.hasError('required') && loanId.dirty) {
+        <span class="errors">El préstamo es requerido</span>
+      }
+    </div>
+
+    <!-- Fecha de devolución -->
+    <div class="form-field">
+      <label for="returnDate">Fecha de devolución</label>
+      <input type="date" id="returnDate" formControlName="returnDate">
+      @if (returnDate.hasError('required') && returnDate.dirty) {
+        <span class="errors">La fecha de devolución es requerida</span>
+      }
+    </div>
+
+    <div class="form-actions">
+      <button type="reset">Limpiar formulario</button>
+      <button type="submit" [disabled]="form.invalid">Enviar</button>
+    </div>
+  </form>
+</div>

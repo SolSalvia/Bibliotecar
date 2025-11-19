@@ -8,4 +8,10 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
   templateUrl: './landing.html',
   styleUrls: ['./landing.css']
 })
-export class LandingComponent {}
+export class LandingComponent {
+
+  contactWhatsapp() {
+    window.open('https://wa.me/542235061211', '_blank');
+  }
+  
+}

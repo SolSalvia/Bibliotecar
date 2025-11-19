@@ -1,0 +1,42 @@
+<div class="wrap">
+  <section class="list-card">
+    <h1>Lista de Devoluciones</h1>
+
+    @let bookReturns = this.bookReturns();
+
+    @if (isLoading()) {
+      <p>Cargando Devoluciones...</p>
+    } @else if (bookReturns && bookReturns.length > 0) {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>ID Devolución</th>
+              <th>ID Préstamo</th>
+              <th>Libro</th>
+              <th>Fecha de Devolución</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (bookReturn of bookReturns; track bookReturn.id) {
+
+              @let book = this.bookReturnClient.getBookByLoanId(bookReturn.loanId)!;
+              <tr>
+                <td>{{ bookReturn.id }}</td>
+                <td>{{ bookReturn.loanId }}</td>
+                <td>{{ book ? book.title : 'Cargando...' }}</td>
+                <td>{{ bookReturn.returnDate }}</td>
+                <td>
+                  <button (click)="navigateToDetails(bookReturn.id!)">Ver detalle</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p>No hay devoluciones cargadas...</p>
+    }
+  </section>
+</div>

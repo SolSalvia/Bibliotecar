@@ -1,0 +1,30 @@
+@let loan = this.loan();
+
+@if (isEditing() && loan) {
+  <app-loan-form [isEditing]="true" [loan]="loan" (edited)="handleEdit($event)">
+  </app-loan-form>
+} @else {
+
+  @if (loan) {
+    <div class="wrap">
+      <section class="detail-card">
+        <h2>Detalles del Préstamo</h2>
+
+        <p><strong>ID:</strong> {{ loan.id }}</p>
+        <p><strong>Usuario:</strong> {{ userName() }}</p>
+        <p><strong>Libro:</strong> {{ bookTitle() }}</p>
+        <p><strong>Fecha de Inicio:</strong> {{ loan.startDate }}</p>
+        <p><strong>Fecha de Fin:</strong> {{ loan.endDate }}</p>
+        <p><strong>Estado:</strong> {{ loan.isActive ? 'Pendiente de Devolución' : 'Finalizado' }}</p>
+
+        <div class="actions">
+          <button (click)="toggleEdit()">Editar</button>
+          <button (click)="deleteLoan()" [disabled]="isEditing()">Borrar</button>
+        </div>
+      </section>
+    </div>
+  } @else {
+    <p>No se encontró el préstamo</p>
+  }
+
+}

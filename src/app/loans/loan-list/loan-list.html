@@ -1,0 +1,45 @@
+<div class="wrap">
+  <section class="list-card">
+    <h1>Lista de Préstamos</h1>
+    @let loans = this.loans();
+
+    @if (isLoading()) {
+      <p>Cargando Préstamos...</p>
+    } @else if (loans && loans.length > 0) {
+      <div class="table-scroll">
+        <table>
+          <thead>
+            <tr>
+              <th>Usuario registrador</th>  
+              <th>Libro prestado</th>  
+              <th>Fecha de Inicio</th>
+              <th>Fecha de Fin</th>
+              <th>Estado</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (loan of loans; track loan.id) {
+              <tr>
+                <td>{{ getUserName(loan.userId) }}</td>
+                <td>{{ getBookTitle(loan.bookId) }}</td>
+                <td>{{ loan.startDate }}</td>
+                <td>{{ loan.endDate }}</td>
+                @if (loan.isActive) {
+                  <td style="color: red;">{{ getStatusText(loan.isActive) }}</td>
+                } @else {
+                  <td style="color: green;">{{ getStatusText(loan.isActive) }}</td>
+                }
+
+                <td><button (click)="navigateToDetails(loan.id!)">Ver detalle</button></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <p>No hay préstamos cargados...</p>
+    }
+  </section>
+
+</div>
