@@ -57,7 +57,7 @@
       "category": "Fantasía",
       "publicationYear": 1605,
       "synopsis": "El hidalgo Don Quijote pierde la razón tras leer muchos libros de caballería y sale a recorrer el mundo con su escudero Sancho Panza, buscando aventuras y justicia.",
-      "available": true,
+      "available": false,
       "id": "b004"
     }
   ],
@@ -138,6 +138,17 @@
         "available": false,
         "id": "a1b2"
       }
+    },
+    {
+      "userId": "d18f",
+      "bookId": "b004",
+      "startDate": "2025-10-15",
+      "endDate": "2025-11-28",
+      "isActive": true,
+      "clientName": "Juan Perez",
+      "clientEmail": "juanchiperez@gmail.com",
+      "clientPhone": "2235122312",
+      "id": "fbf0"
     }
   ],
   "bookReturns": [
