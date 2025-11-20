@@ -17,7 +17,7 @@
       "category": "Ciencia Ficción",
       "publicationYear": 1949,
       "synopsis": "Winston Smith vive bajo un régimen totalitario que lo vigila todo. Reflexiona sobre la libertad, la opresión y la verdad en un mundo controlado por el Partido y el Gran Hermano.",
-      "available": true,
+      "available": false,
       "id": "b002"
     },
     {
@@ -54,7 +54,7 @@
       "ISBN": "978-84-9105-192-1",
       "title": "Don Quijote de la Mancha",
       "author": "Miguel de Cervantes Saavedra",
-      "category": "Fantasía",
+      "category": "Ciencia Ficción",
       "publicationYear": 1605,
       "synopsis": "El hidalgo Don Quijote pierde la razón tras leer muchos libros de caballería y sale a recorrer el mundo con su escudero Sancho Panza, buscando aventuras y justicia.",
       "available": false,
@@ -149,6 +149,38 @@
       "clientEmail": "juanchiperez@gmail.com",
       "clientPhone": "2235122312",
       "id": "fbf0"
+    },
+    {
+      "id": "343d",
+      "userId": "d18f",
+      "bookId": "b002",
+      "startDate": "2022-11-20",
+      "endDate": "2025-05-10",
+      "isActive": true,
+      "clientName": "Gerundio Rodriguez",
+      "clientEmail": "gerundio@yahoo.com.ar",
+      "clientPhone": "2235911911"
+    },
+    {
+      "id": "e9b6",
+      "userId": "d18f",
+      "bookId": "d6e7",
+      "startDate": "2023-10-15",
+      "endDate": "2025-10-14",
+      "isActive": false,
+      "clientName": "Ejemplo",
+      "clientEmail": "ejemplo@hotmail.com",
+      "clientPhone": "2235412218",
+      "book": {
+        "ISBN": "978-84-9122-100-5",
+        "title": "Las brujas",
+        "author": "Roald Dahl",
+        "category": "Infantil",
+        "publicationYear": 1983,
+        "synopsis": "Un niño y su abuela descubren que hay brujas disfrazadas de mujeres normales y deben enfrentarlas.",
+        "available": false,
+        "id": "d6e7"
+      }
     }
   ],
   "bookReturns": [
@@ -165,6 +197,11 @@
     {
       "id": "1038",
       "loanId": "16ae",
+      "returnDate": "2025-11-20"
+    },
+    {
+      "id": "d45b",
+      "loanId": "e9b6",
       "returnDate": "2025-11-20"
     }
   ]
