@@ -1,15 +1,79 @@
-html, body{
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
-  height: 100%;
+/* ================================
+   VARIABLES GLOBALES
+================================ */
+:root {
+  /* ================================
+     COLORES
+  =============================== */
+  --color-bg-body: #a76b3d00;
+  --color-bg-form: #fff3ea;
+  --color-bg-card: #fff3ea;
+  --color-bg-card-detail: #fff8f3;
+  --color-bg-input: #ffffff;
+  --color-bg-button-primary: #ff7a45;
+  --color-bg-button-primary-hover: #e96a36;
+  --color-bg-button-reset: #f1efed;
+  --color-bg-button-reset-hover: #e8e6e4;
+  --color-bg-button-secondary: #9f0000;
+  --color-bg-button-secondary-hover: #a80909;
+  --color-bg-back: #5e5e5e;
+  --color-bg-back-hover: #696969;
+  --color-bg-dropdown: #fff;
+  --color-bg-dropdown-hover: #f3f2f1;
+  --color-bg-filter-menu: #fff;
+  --color-bg-clear-btn-hover: #ff7a45;
+
+  --color-text: #222;
+  --color-text-secondary: #55504e;
+  --color-text-placeholder: #8c8885;
+  --color-error: #e53935;
+
+  /* ================================
+     BORDES & RADIOS
+  =============================== */
+  --border-radius-form: 14px;
+  --border-radius-input: 6px;
+  --border-radius-button: 10px;
+  --border-radius-dropdown: 10px;
+  --border-radius-filter: 8px;
+  --border-radius-textarea: 12px;
+
+  --border-color-form: #b8b3b0;
+  --border-color-input: #b8b3b0;
+  --border-color-select: #b8b3b0;
+  --border-color-filter-menu: #c2825a;
+  --border-color-clear-btn: #ff7a45;
+  --border-color-card-detail: #e3d7cf;
+
+  /* ================================
+     SOMBRAS
+  =============================== */
+  --shadow-form: 0 12px 28px rgba(0,0,0,.12);
+  --shadow-card: 0 12px 28px rgba(0,0,0,.12);
+  --shadow-dropdown: 0 10px 24px rgba(0,0,0,0.12);
+  --shadow-filter-menu: 0 10px 24px rgba(0,0,0,0.16);
+  --shadow-card-detail: 0 18px 32px rgba(0,0,0,.12);
+
+  /* ================================
+     TAMAÑOS
+  =============================== */
+  --input-height: 40px;
+  --input-padding: 8px 12px;
+  --textarea-min-height: 110px;
+  --font-size-base: 1rem;
+  --font-size-button: 1rem;
+  --font-size-title: 30px;
+  --font-size-title-sm: 22px;
 }
 
 /* ================================
-   GLOBAL BACKGROUND & LAYOUT
+   GLOBAL STYLES
 ================================ */
-body {
+html, body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Inter, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  height: 100%;
+  background: var(--color-bg-body);
   margin: 0;
-  background: #a76b3d00;
-  font-family: system-ui, sans-serif;
 }
 
 .wrap {
@@ -32,25 +96,24 @@ form {
   margin-inline: auto;
   width: 100%;
   max-width: 720px;
-  background: #fff3ea;
-  border: 1px solid #b8b3b0;
-  border-radius: 14px;
+  background: var(--color-bg-form);
+  border: 1px solid var(--border-color-form);
+  border-radius: var(--border-radius-form);
   padding: 46px 50px 56px;
   display: grid;
   gap: 18px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  box-shadow: var(--shadow-form);
   color-scheme: light;
   margin-top: 50px;
   margin-bottom: 50px;
 }
 
-/* TITLE */
 form h2 {
   margin: 0 0 12px;
   text-align: center;
-  font-size: 30px;
+  font-size: var(--font-size-title);
   font-weight: 800;
-  color: #222;
+  color: var(--color-text);
 }
 
 /* ================================
@@ -63,11 +126,11 @@ form h2 {
 
 .form-field label {
   font-weight: 600;
-  color: #55504e;
+  color: var(--color-text-secondary);
 }
 
 /* ================================
-   Inputs unificados para toda la app
+   INPUTS / TEXTAREA / SELECT
 ================================ */
 input[type="text"],
 input[type="number"],
@@ -76,53 +139,48 @@ input[type="password"],
 textarea,
 select {
   width: 100%;
-  height: 40px;            /* altura uniforme */
-  padding: 8px 12px;       /* padding consistente */
-  border: 1px solid #b8b3b0;
-  border-radius: 6px;       /* mismo border-radius que login */
-  background: #ffffff;
-  color: #222;
-  caret-color: #222;
-  font-size: 1rem;          /* tamaño de texto consistente */
-  box-sizing: border-box;   /* padding incluido en ancho */
+  height: var(--input-height);
+  padding: var(--input-padding);
+  border: 1px solid var(--border-color-input);
+  border-radius: var(--border-radius-input);
+  background: var(--color-bg-input);
+  color: var(--color-text);
+  caret-color: var(--color-text);
+  font-size: var(--font-size-base);
+  box-sizing: border-box;
   transition: border-color .2s, box-shadow .2s, background-color .2s;
 }
 
-/* Ajuste de textarea para altura variable */
 textarea {
   resize: vertical;
-  min-height: 110px;
-  height: auto;            /* para que no se vea chiquita */
-  padding: 8px 12px;
+  min-height: var(--textarea-min-height);
+  height: auto;
 }
 
-/* Focus */
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: #ff7a45;
+  border-color: var(--color-bg-button-primary);
   box-shadow: 0 0 0 3px rgba(255,122,69,.25);
   outline: none;
 }
 
-/* Placeholder */
 input::placeholder,
 textarea::placeholder {
-  color: #8c8885;
+  color: var(--color-text-placeholder);
 }
 
-/* Checkbox available */
 #available {
   width: 18px;
   height: 18px;
-  accent-color: #ff7a45;
+  accent-color: var(--color-bg-button-primary);
 }
 
 /* ================================
    ERROR MESSAGES
 ================================ */
 .errors {
-  color: #e53935;
+  color: var(--color-error);
   font-size: 0.9rem;
   margin-top: 2px;
   font-weight: 500;
@@ -141,105 +199,95 @@ textarea::placeholder {
 
 .form-actions button {
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-button);
   padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
   transition: background-color .2s, transform .1s, opacity .2s;
 }
 
-/* SUBMIT BUTTON */
+/* SUBMIT */
 .form-actions button[type="submit"] {
-  background: #ff7a45;
-  color: #fff;
+  background: var(--color-bg-button-primary);
+  color: var(--color-bg-input);
 }
 
 .form-actions button[type="submit"]:hover:not(:disabled) {
-  background: #e96a36;
+  background: var(--color-bg-button-primary-hover);
   transform: translateY(-1px);
 }
 
-/* Disabled submit button */
 .form-actions button[type="submit"]:disabled {
   opacity: 0.5;
   cursor: not-allowed;
   transform: none;
 }
 
-/* RESET BUTTON */
+/* RESET */
 .form-actions button[type="reset"] {
-  background: #f1efed;
-  color: #222;
-  border: 1px solid #b8b3b0;
+  background: var(--color-bg-button-reset);
+  color: var(--color-text);
+  border: 1px solid var(--border-color-form);
 }
 
 .form-actions button[type="reset"]:hover {
-  background: #e8e6e4;
+  background: var(--color-bg-button-reset-hover);
 }
 
 /* ================================
-   RETURN BUTTON (MENÚ PRINCIPAL)
+   RETURN / BACK BUTTON
 ================================ */
-.return {
-  margin-top: 24px;
-  display: flex;
-  justify-content: center;
-}
-
 .return .btn {
-  background: #ff7f50;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color .2s, transform .1s;
+  background: var(--color-bg-button-primary);
+  color: var(--color-bg-input);
 }
 
 .return .btn:hover {
-  background: #ff6a33;
-  transform: translateY(-1px);
+  background: var(--color-bg-button-primary-hover);
 }
 
 .form-backAction button {
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-button);
   padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color .2s, transform .1s, opacity .2s;
+}
+
+.btn-back {
+  background: var(--color-bg-back);
+  color: var(--color-bg-input);
+}
+
+.btn-back:hover {
+  background: var(--color-bg-back-hover);
 }
 
 /* ================================
    DROPDOWN
-
-/* .combo es el contenedor relativo para el dropdown */
+================================ */
 .combo {
   position: relative;
   width: 100%;
 }
 
-/* input dentro del combo */
 .combo input {
   width: 100%;
   padding: 12px 14px;
-  border-radius: 10px;
-  border: 1px solid #b8b3b0;
-  background: #ffffff;
-  box-sizing: border-box;
+  border-radius: var(--border-radius-dropdown);
+  border: 1px solid var(--border-color-input);
+  background: var(--color-bg-input);
 }
 
-/* dropdown posicionado debajo del input */
 .combo .dropdown {
   position: absolute;
   top: calc(100% + 6px);
   left: 0;
   right: 0;
-  background: #fff;
-  border: 1px solid #b8b3b0;
-  border-radius: 10px;
-  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
+  background: var(--color-bg-dropdown);
+  border: 1px solid var(--border-color-input);
+  border-radius: var(--border-radius-dropdown);
+  box-shadow: var(--shadow-dropdown);
   max-height: 260px;
   overflow-y: auto;
   z-index: 9999;
@@ -248,7 +296,6 @@ textarea::placeholder {
   list-style: none;
 }
 
-/* items */
 .combo .dropdown li {
   padding: 10px 14px;
   cursor: pointer;
@@ -258,44 +305,46 @@ textarea::placeholder {
 }
 
 .combo .dropdown li:hover {
-  background: #f3f2f1;
+  background: var(--color-bg-dropdown-hover);
 }
 
-/* mensaje vacío */
 .combo .dropdown .empty {
   padding: 10px 14px;
   color: #777;
 }
 
-/* --- LISTA / CARD CONTENEDOR --- */
+/* ================================
+   LIST / CARD
+================================ */
 .list-card{
   color-scheme: light;
   width: 100%;
   max-width: 1500px;
-  background: #fff3ea;
-  border: 1px solid #b8b3b0;
-  border-radius: 14px;
-  box-shadow: 0 12px 28px rgba(0,0,0,.12);
+  background: var(--color-bg-card);
+  border: 1px solid var(--border-color-form);
+  border-radius: var(--border-radius-form);
+  box-shadow: var(--shadow-card);
   padding: 32px 34px 40px;
   display: grid;
   gap: 18px;
 }
 
-/* TÍTULO */
 .list-card h1{
   margin: 0 0 12px;
   text-align: center;
-  font-size: 30px;
+  font-size: var(--font-size-title);
   font-weight: 800;
-  color: #222;
+  color: var(--color-text);
 }
 
 .list-card p{
-  color:#55504e;
+  color: var(--color-text-secondary);
   margin: 0;
 }
 
-/* --- TABLA --- */
+/* ================================
+   TABLAS
+================================ */
 .list-card .table-scroll{
   overflow: auto;
 }
@@ -303,25 +352,25 @@ textarea::placeholder {
 .list-card table{
   width: 100%;
   border-collapse: collapse;
-  background: #fff;
-  border: 1px solid #b8b3b0;
-  border-radius: 12px;
+  background: var(--color-bg-input);
+  border: 1px solid var(--border-color-form);
+  border-radius: var(--border-radius-input);
   overflow: hidden;
 }
 
 .list-card thead th{
   background: #f7f6f6;
-  color: #222;
+  color: var(--color-text);
   font-weight: 700;
   text-align: left;
   padding: 12px 14px;
-  border-bottom: 1px solid #b8b3b0;
+  border-bottom: 1px solid var(--border-color-form);
   white-space: nowrap;
 }
 
 .list-card tbody td{
   padding: 12px 14px;
-  color: #222;
+  color: var(--color-text);
   border-bottom: 1px solid #e9e7e6;
   vertical-align: middle;
 }
@@ -331,10 +380,9 @@ textarea::placeholder {
 }
 
 .list-card tbody tr:hover{
-  background: #f3f2f1;
+  background: var(--color-bg-dropdown-hover);
 }
 
-/* SINOPSIS con ellipsis */
 .list-card tbody td:nth-child(7){
   max-width: 420px;
   white-space: nowrap;
@@ -342,17 +390,18 @@ textarea::placeholder {
   text-overflow: ellipsis;
 }
 
-/* Alineaciones especiales */
 .list-card thead th:nth-child(6),
 .list-card tbody td:nth-child(6){
   text-align: center;
 }
+
 .list-card thead th:nth-child(8),
 .list-card tbody td:nth-child(8){
   text-align: center;
   font-weight: 600;
-  color:#55504e;
+  color: var(--color-text-secondary);
 }
+
 .list-card thead th:nth-child(9),
 .list-card tbody td:nth-child(9){
   text-align: center;
@@ -360,57 +409,57 @@ textarea::placeholder {
   white-space: nowrap;
 }
 
-/* Botones dentro de lista */
 .list-card td:last-child button{
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-button);
   padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
+  background: var(--color-bg-button-primary);
+  color: var(--color-bg-input);
   transition: background-color .2s, transform .1s, opacity .2s;
-  background: #ff7a45;
-  color: #fff;
 }
+
 .list-card td:last-child button:hover{
-  background: #e96a36;
+  background: var(--color-bg-button-primary-hover);
   transform: translateY(-1px);
 }
 
-
-/* --- DETALLE / CARD --- */
+/* ================================
+   DETAIL CARD
+================================ */
 .detail-card{
   max-width: 700px;
   padding: 38px 42px 48px;
   border-radius: 18px;
-  background: #fff8f3;
-  border: 1px solid #e3d7cf;
-  box-shadow: 0 18px 32px rgba(0,0,0,.12);
+  background: var(--color-bg-card-detail);
+  border: 1px solid var(--border-color-card-detail);
+  box-shadow: var(--shadow-card-detail);
   display: grid;
   gap: 16px;
 }
 
-/* TITULOS Y TEXTO */
 .detail-card h2{
   font-size: 28px;  
   font-weight: 800;
   text-align: center; 
   margin-bottom: 10px;
   letter-spacing: 0.4px;
-  color: #1e1e1e;
+  color: var(--color-text);
 }
 
 .detail-card p{
   margin: 0;
   padding: 12px 16px;
-  border-radius: 12px;
-  background: #ffffffa7;
+  border-radius: var(--border-radius-textarea);
+  background: rgba(255,255,255,0.65);
   border: 1px solid #f0e7df;
   display: flex;
   gap: 10px;
   align-items: baseline;
   font-size: 16px;
   line-height: 1.45;
-  color: #333;
+  color: var(--color-text);
 }
 
 .detail-card p + p{
@@ -419,11 +468,10 @@ textarea::placeholder {
 
 .detail-card p strong{
   min-width: 170px;
-  color: #44403c;
+  color: var(--color-text-secondary);
   font-weight: 600;
 }
 
-/* BOTONES */
 .detail-card .actions{
   display: flex;
   justify-content: center;
@@ -433,67 +481,136 @@ textarea::placeholder {
 
 .detail-card .btn-primary {
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-button);
   padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
+  background: var(--color-bg-button-primary);
+  color: var(--color-bg-input);
   transition: background-color .2s, transform .1s, opacity .2s;
-  background: #ff7a45;
-  color: #fff;
 }
+
 .detail-card .btn-primary:hover {
-  background: #e96a36;
+  background: var(--color-bg-button-primary-hover);
   transform: translateY(-1px);
 }
 
 .detail-card .btn-secondary {
   border: none;
-  border-radius: 10px;
+  border-radius: var(--border-radius-button);
   padding: 10px 18px;
   font-weight: 600;
   cursor: pointer;
+  background: var(--color-bg-button-secondary);
+  color: var(--color-bg-input);
   transition: background-color .2s, transform .1s, opacity .2s;
-  background: #9f0000;
-  color: #fff;
 }
+
 .detail-card .btn-secondary:hover {
-  background: #a80909;
+  background: var(--color-bg-button-secondary-hover);
   transform: translateY(-1px);
 }
 
-
-/* BACK BUTTON (Al final, no lo usaremos)*/
-.back-action {
-  display: flex;
-  justify-content: center;
-  margin-top: -100px; 
-  margin-bottom: 60px;
-}
-
-.btn-back {
-  border: none;
-  border-radius: 10px;
-  padding: 10px 18px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color .2s, transform .1s, opacity .2s;
-  background: #5e5e5e;
-  color: #fdfdfd;
-}
-
-.btn-back:hover {
-  background: #696969;
-  transform: translateY(-1px);
-}
-
-
-/* DESHABILITADO */
 .detail-card button[disabled]{
   opacity: .55;
   cursor: not-allowed;
   transform: none;
 }
 
+/* ================================
+   FILTROS
+================================ */
+.filter-section {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.filter-section h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.filter-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.filter-wrapper input {
+  padding-right: 40px;
+}
+
+.filter-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 17px;
+  cursor: pointer;
+  color: var(--color-text-secondary);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s, transform 0.1s;
+}
+
+.filter-btn:hover {
+  color: var(--color-bg-button-primary);
+}
+
+.filter-menu {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  background: var(--color-bg-filter-menu);
+  border: 1px solid var(--border-color-filter-menu);
+  border-radius: var(--border-radius-filter);
+  box-shadow: var(--shadow-filter-menu);
+  padding: 8px;
+  z-index: 20;
+  min-width: 180px;
+}
+
+.filter-menu select {
+  width: 100%;
+  padding: 6px 10px;
+  border-radius: var(--border-radius-filter);
+  border: 1px solid #ce7744;
+  background: #ede1dd;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.date-filters {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.clear-btn {
+  padding: 4px 8px;
+  background: transparent;
+  border: 1px solid var(--border-color-clear-btn);
+  border-radius: var(--border-radius-filter);
+  font-size: 0.75rem;
+  color: var(--color-bg-button-primary);
+  cursor: pointer;
+  height: 30px;
+  line-height: 1;
+  transition: 0.2s;
+}
+
+.clear-btn:hover {
+  background: var(--color-bg-clear-btn-hover);
+  color: white;
+  opacity: 0.7;
+}
 
 /* ================================
    RESPONSIVE
@@ -506,16 +623,16 @@ textarea::placeholder {
 
   form {
     padding: 26px;
-    width: 100%;        /* asegurar que ocupe todo el ancho disponible */
-    max-width: 100%;    /* eliminar límite estricto para móviles */
+    width: 100%;
+    max-width: 100%;
   }
 
   form h2 {
-    font-size: 22px;    /* más pequeño para pantallas chicas */
+    font-size: var(--font-size-title-sm);
   }
 
   .form-field {
-    gap: 4px;           /* reducir espacio entre label y input */
+    gap: 4px;
   }
 
   input[type="text"],
@@ -523,8 +640,8 @@ textarea::placeholder {
   input[type="date"],
   textarea,
   select {
-    padding: 10px;      /* padding más pequeño */
-    font-size: 0.9rem;  /* fuente más pequeña */
+    padding: 10px;
+    font-size: 0.9rem;
   }
 
   .form-actions {
@@ -533,11 +650,63 @@ textarea::placeholder {
   }
 
   .form-actions button {
-    width: 100%;        /* botones ocupan todo el ancho en móviles */
+    width: 100%;
   }
 
   .combo .dropdown { 
     max-height: 180px; 
     top: calc(100% + 4px); 
   }  
+
+  .filter-section {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  /* Barra de búsqueda ocupa todo el ancho */
+  .searchbar {
+    width: 100%;
+  }
+
+  .searchbar input {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Filtros de fecha apilados verticalmente */
+  .date-filters {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .date-filters label {
+    margin-bottom: 4px;
+  }
+
+  .date-filters input {
+    width: 100%;
+  }
+
+  .clear-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .searchbar {
+    flex-direction: row; 
+  }
+
+  .searchbar input {
+    padding-right: 30px;
+    font-size: 0.8rem;
+  }
+
+  .searchbar .filter-btn {
+    right: 0px;
+    padding: 3px 10px;
+    font-size: 0.85rem;
+  }  
+
 }

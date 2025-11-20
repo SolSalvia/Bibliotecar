@@ -1,7 +1,18 @@
 <div class="wrap">
   <section class="list-card">
     <h1>Lista de Usuarios</h1>
-    @let users = this.users();
+    <div class="filter-section">
+      <h2>Búsqueda</h2>
+      <div class="searchbar">   
+        <input
+          type="text"
+          [formControl]="search"
+          placeholder=" 🔎 Buscar por nombre de usuario..."
+        />
+      </div>
+    </div>
+
+    @let users = this.filteredUsers();
 
     @if (isLoading()) {
       <p>Cargando Usuarios...</p>

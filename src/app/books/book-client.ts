@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Book } from './book';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -34,4 +36,9 @@ export class BookClient {
   deleteBook(id: string | number) {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
+
+  existsISBN(isbn: string) {
+    return this.http.get<Book[]>(`${this.baseUrl}/?ISBN=${isbn}`);
+  }  
+
 }

@@ -56,8 +56,8 @@
           @if (clientName.hasError('minlength') && clientName.dirty) {
             <span class="errors">El nombre del cliente debe tener al menos 3 caracteres</span>
           }
-          @if (clientName.hasError('pattern') && clientName.touched) {
-            <span class="errors">Solo se permiten letras.</span>
+          @if (clientName.hasError('pattern') && clientName.dirty) {
+            <span class="errors">Solo se permiten letras</span>
           }
       </div>
 
@@ -81,8 +81,8 @@
           @if (clientPhone.hasError('minlength') && clientPhone.dirty) {
             <span class="errors">El teléfono del cliente debe tener al menos 7 caracteres</span>
           }
-          @if (clientPhone.hasError('pattern') && clientPhone.touched) {
-            <span class="errors">Solo se permiten números.</span>
+          @if (clientPhone.hasError('pattern') && clientPhone.dirty) {
+            <span class="errors">Solo se permiten números</span>
           }
       </div>
 

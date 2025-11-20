@@ -15,7 +15,6 @@ export class Header {
 
   logout() {
     this.auth.logout();
-    this.router.navigateByUrl('/login');
   }
 
   //VOLVER AL MENU PRINCIPAL

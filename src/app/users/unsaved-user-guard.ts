@@ -7,7 +7,7 @@ export const unsavedUserGuard: CanDeactivateFn<UserForm> = (component) => {
 
   // Si la bandera está activada, preguntar siempre
   if (component.confirmOnLeave) {
-    return confirm('¿Desea salir sin guardar?');
+    return confirm('⚠️ ¿Desea salir sin guardar?');
   }
   
   return true;

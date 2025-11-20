@@ -4,10 +4,13 @@ import { Router } from '@angular/router';
 import { LoanClient } from '../loan-client';
 import { BookClient } from '../../books/book-client';
 import { UserClient } from '../../users/user-client';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { debounceTime, map, startWith } from 'rxjs/operators';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-loan-list',
-  imports: [],
+  imports: [ReactiveFormsModule, DatePipe],
   templateUrl: './loan-list.html',
   styleUrl: './loan-list.css'
 })
@@ -58,4 +61,59 @@ export class LoanList {
   getStatusText(isActive: boolean | undefined) {
     return isActive ? 'Pendiente de Devolución' : 'Finalizado';
   }
+
+  
+  
+  //Búsqueda y filtros
+
+  // Campo de búsqueda. Lo que escriba el usuario se guarda acá.
+  readonly search = new FormControl<string>('', { nonNullable: true });
+  
+  // Armo un texto grande con (usuario, libro, fechas, estado)
+  private buildSearchText(loan: any): string {
+    const userName = this.getUserName(loan.userId);
+    const bookTitle = this.getBookTitle(loan.bookId);
+    return ` ${loan.id} ${userName} ${bookTitle} ${loan.startDate} ${loan.endDate} ${this.getStatusText(loan.isActive)}`.toLowerCase();
+  }
+
+  // espero 200ms antes de filtrar
+  private readonly searchTerm = toSignal(
+    this.search.valueChanges.pipe(
+      startWith(''),               // arranca vacío
+      debounceTime(200),           // espera un poquito entre tipeos
+      map(v => v.trim().toLowerCase()) // lo paso a minúsculas
+    ),
+    { initialValue: '' }
+  );
+
+  // Filtro por estado del préstamo: todos / activo / finalizado
+  readonly availabilityFilter = signal<'all' | 'Finalizado' | 'Pendiente de Devolución'>('all');
+
+  // Muestra u oculta el menú despebagle de filtros
+  showFilter = false;
+  toggleFilter() {
+    this.showFilter = !this.showFilter;
+  }
+
+  // Acá se combinan los dos filtros:
+  // 1) búsqueda por texto
+  // 2) filtro por estado
+  protected readonly filteredLoans = computed(() => {
+    const q = this.searchTerm();          // texto que buscó el usuario
+    const avail = this.availabilityFilter(); // estado elegido
+
+    return (this.loans() ?? [])
+      // filtro por texto: compara contra el buildSearchText
+      .filter(loan => this.buildSearchText(loan).includes(q))
+      // filtro por el estado elegido
+      .filter(loan =>
+        avail === 'all'
+          ? true
+          : avail === 'Pendiente de Devolución'
+            ? loan.isActive    // activo = pendiente
+            : !loan.isActive   // no activo = finalizado
+      );
+  });
+
+
 }

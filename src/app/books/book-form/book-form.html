@@ -9,7 +9,7 @@
         id="ISBN"
         formControlName="ISBN"
         placeholder="978-3-16-148410-0"
-        (input)="formatISBN($event)"
+        (input)="checkISBN()"
       >
       @if (ISBN.invalid && ISBN.dirty) {
         <span class="errors">
@@ -19,8 +19,15 @@
           @else if (ISBN.hasError('pattern')) {
             Formato inválido. Ejemplo válido: 978-3-16-148410-0
           }
+          @else if (ISBN.hasError('noHyphen')) {
+            Faltan guiones en el ISBN. Formato ejemplo: 978-84-450-1788-3
+          }
         </span>
       }
+      @if (ISBN.hasError('exists')) {
+        <span class="errors"> Ya existe un libro con ese ISBN </span>
+      }      
+
     </div>
 
     <div class="form-field">
@@ -37,6 +44,9 @@
       @if (author.hasError('required') && author.dirty) {
         <span class="errors">El autor es requerido</span>
       }
+      @if (author.hasError('pattern') && author.dirty) {
+        <span class="errors">No se permiten números</span>
+      }      
     </div>
 
     <div class="form-field">
@@ -57,6 +67,8 @@
           <span class="errors">El año de publicación es requerido</span>
         } @else if (publicationYear.hasError('min')) {
           <span class="errors">El año de publicación debe ser mayor o igual a 0</span>
+        }@else if (publicationYear.hasError('pattern')) {
+          <span class="errors">Formato inválido. El año debe tener entre 1 y 4 dígitos</span>
         }
       }
     </div>

@@ -6,11 +6,12 @@ import { LoanForm } from '../loan-form/loan-form';
 import { Loan } from '../loan';
 import { BookClient } from '../../books/book-client';
 import { UserClient } from '../../users/user-client';
-
+import { BookReturnClient } from '../../bookReturns/bookReturn-client';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-loan-details',
-  imports: [LoanForm],
+  imports: [LoanForm, DatePipe],
   templateUrl: './loan-details.html',
   styleUrl: './loan-details.css'
 })
@@ -20,6 +21,7 @@ export class LoanDetails {
   private readonly client = inject(LoanClient);
   private readonly bookClient = inject(BookClient);
   private readonly userClient = inject(UserClient);
+  private readonly bookReturnClient = inject(BookReturnClient);
   private readonly router = inject(Router);
   private readonly route = inject(ActivatedRoute);
   private readonly id = this.route.snapshot.paramMap.get('id');
@@ -71,34 +73,38 @@ export class LoanDetails {
     }
   }*/
 
- deleteLoan() {
+ 
+  deleteLoan() {
     const currentLoan = this.loan();
     if (!currentLoan) return;
 
-    if (confirm('Desea borrar el préstamo?')) {
-      
-      //primero liberamos el libro
-      this.bookClient.getBookById(currentLoan.bookId!).subscribe(book => {
-        if (book) {
-          this.bookClient.updateBook({ ...book, available: true }, book.id!).subscribe({
-            next: () => console.log(`Libro "${book.title}" vuelve a estar disponible`),
-            error: (err) => console.error('Error al liberar libro', err)
-          });
-        }
-      });
+    // PRIMERA VERIFICACIÓN buscamos devoluciones asociadas a este préstamo
+    this.bookReturnClient.getBookReturns().subscribe(bookReturns => {
+      const hasReturn = bookReturns.some(br => br.loanId === currentLoan.id);
 
-      // Luego se elimina el préstamo
-      this.client.deleteLoan(this.id!).subscribe({
-        next: () => {
-          alert('Préstamo borrado con éxito');
+      if (hasReturn) {
+        alert('❌ No se puede eliminar un préstamo que tiene una devolución asociada.\n\nPrimero debe eliminar la devolución.');
+        return; // Cortamos acá. No borramos nada.
+      }
+
+      //Si NO hay devolución, seguimos con el proceso normal
+      if (confirm('⚠️ ¿Desea borrar el préstamo?')) {
+
+        // 1) Liberar el libro
+        this.bookClient.getBookById(currentLoan.bookId!).subscribe(book => {
+          if (book) {
+            this.bookClient.updateBook({ ...book, available: true }, book.id!).subscribe();
+          }
+        });
+
+        // 2) Eliminar el préstamo
+        this.client.deleteLoan(this.id!).subscribe(() => {
+          alert('✅ ¡Préstamo borrado con éxito! ');
           this.router.navigateByUrl('/prestamos');
-        },
-        error: (err) => {
-          console.error('Error al borrar préstamo', err);
-          alert('No se pudo borrar el préstamo');
-        }
-      });
-    }
+        });
+      }
+
+    });
   }    
 
   

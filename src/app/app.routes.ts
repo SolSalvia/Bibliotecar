@@ -3,6 +3,7 @@ import { Routes } from '@angular/router';
 import { LandingComponent } from './landing/landing';
 
 import { MainMenuComponent } from './main-menu/main-menu';
+import { exitMenuGuard } from './main-menu/exit-menu.guard';
 
 import { LoginComponent } from './auth/login/login';
 import { authGuard } from './auth/auth-guard';
@@ -16,6 +17,7 @@ import { UserForm } from './users/user-form/user-form';
 import { UserList } from './users/user-list/user-list';
 import { UserDetails } from './users/user-details/user-details';
 import { unsavedUserGuard } from './users/unsaved-user-guard';
+import { adminGuard } from './users/admin-guard';
 
 import { LoanForm } from './loans/loan-form/loan-form';
 import { LoanList } from './loans/loan-list/loan-list';
@@ -33,15 +35,15 @@ export const routes: Routes = [
 
     { path: 'login', component: LoginComponent, title: 'Iniciar Sesión' },
 
-    { path: 'menu', component: MainMenuComponent, title: 'Menú principal', canActivate: [authGuard] },
+    { path: 'menu', component: MainMenuComponent, title: 'Menú principal', canActivate: [authGuard], canDeactivate: [exitMenuGuard] },
 
     { path: 'agregar-libro', component: BookForm, title: "Agregar Libro", canActivate: [authGuard], canDeactivate: [unsavedBookGuard] },
     { path: 'biblioteca', component: BookList, title: 'Lista de Libros', canActivate: [authGuard] },
     { path: 'biblioteca/:id', component: BookDetails, title: 'Detalles de Libro', canActivate: [authGuard] },
 
-    { path: 'agregar-usuario', component: UserForm, title: 'Agregar Usuario', canActivate: [authGuard], canDeactivate: [unsavedUserGuard] },  
-    { path: 'usuarios', component: UserList, title: 'Lista de Usuarios', canActivate: [authGuard]},
-    { path: 'usuarios/:id', component: UserDetails, title: 'Detalles de Usuario', canActivate: [authGuard]},
+    { path: 'agregar-usuario', component: UserForm, title: 'Agregar Usuario', canActivate: [adminGuard], canDeactivate: [unsavedUserGuard] },  
+    { path: 'usuarios', component: UserList, title: 'Lista de Usuarios', canActivate: [adminGuard]},
+    { path: 'usuarios/:id', component: UserDetails, title: 'Detalles de Usuario', canActivate: [adminGuard]},
 
     { path: 'agregar-prestamo', component: LoanForm, title: 'Agregar Préstamo', canActivate: [authGuard], canDeactivate: [unsavedLoanGuard] },
     { path: 'prestamos', component: LoanList, title: 'Lista de Préstamos', canActivate: [authGuard] },

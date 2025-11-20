@@ -16,6 +16,7 @@ export class BookForm {
   private readonly formBuilder = inject(FormBuilder);
   private readonly router = inject(Router);
 
+  isbnExists: boolean = false;
 
   readonly isEditing = input(false);
   readonly book = input<Book>();
@@ -30,8 +31,61 @@ export class BookForm {
   ngOnInit(): void {
     // Activamos la lógica de preguntar al salir aunque no haya cambios
     this.confirmOnLeave = true;
-  }    
+  }   
+  
+  constructor() {
+    effect(() => {
+      if (this.isEditing() && this.book()) {
+        this.form.patchValue(this.book()!);
+      }
+    });
+  }  
 
+  checkISBN() {
+    // Obtenemos el valor actual del campo ISBN del formulario
+    const isbn = this.ISBN.value;
+
+    if (!isbn) {
+      this.isbnExists = false; 
+      return;                  
+    }
+
+    // Llamamos al cliente que consulta si el ISBN ya existe en la base de datos
+    this.client.existsISBN(isbn).subscribe(result => {
+
+      // result es un array de libros que coinciden con ese ISBN
+      const existeEnBD = result.length > 0;
+
+      // Si estamos editando un libro, debemos permitir que se mantenga el mismo ISBN
+      const esElMismo =
+        this.isEditing() &&          // Verificamos si estamos en modo edición
+        this.book() &&               // Verificamos que exista un libro cargado
+        this.book()!.ISBN === isbn;  // Comparamos si el ISBN es el mismo
+
+      // La variable isbnExists indica si realmente hay un conflicto de ISBN
+      this.isbnExists = existeEnBD && !esElMismo;
+
+      if (this.isbnExists) {
+        // Creamos un error personalizado 'exists' para mostrar en la UI
+        this.ISBN.setErrors({ exists: true });
+      } else {
+        // Si no hay conflicto, debemos eliminar el error 'exists' si estaba presente
+        if (this.ISBN.hasError('exists')) {
+          // Hacemos una copia del objeto de errores actual
+          const actualErrors = { ...this.ISBN.errors };
+
+          // Eliminamos solo la propiedad 'exists' para no borrar otros errores
+          delete actualErrors['exists'];
+
+        // Si no quedan más errores, ponemos null; si quedan otros, los mantenemos
+          if (Object.keys(actualErrors).length === 0)
+            this.ISBN.setErrors(null);        // No hay errores, control válido
+          else
+            this.ISBN.setErrors(actualErrors); // Quedan otros errores, los mantenemos
+        }
+      }
+    });
+  }
 
   protected readonly categories = [
     'Novela',
@@ -61,63 +115,32 @@ export class BookForm {
       '', 
       [
         Validators.required,
-        Validators.pattern(/^\d+-\d+-\d+-\d+-\d+$/)   // ISBN con 5 grupos
+        Validators.pattern(/^[\d-]+$/), // Solo números y guiones
+         this.hasHyphenValidator
       ]
     ],
     title: ['', Validators.required],
-    author: ['', Validators.required],
+    author: ['', [ Validators.required, Validators.pattern(/^[^\d]+$/)]], // No números en el nombre del autor
     category: ['', Validators.required],
     publicationYear: [
       '',
       [
         Validators.required,
-        Validators.pattern(/^\d{4}$/)                // año de 4 dígitos
+        Validators.pattern(/^\d{1,4}$/)
       ]
     ],
     synopsis: [''],
     available: [false]
   });
 
-  formatISBN(event: Event) {
-    const input = event.target as HTMLInputElement;
+  hasHyphenValidator(control: any) {
+    const value = control.value;
+    if (!value) return null;
   
-    // Solo números
-    let digits = input.value.replace(/\D/g, '');
-  
-    // Limitar a 13 dígitos
-    if (digits.length > 13) {
-      digits = digits.slice(0, 13);
-    }
-  
-    let formatted = '';
-  
-    // Grupos: 3 - 1 - 2 - 6 - 1
-    if (digits.length <= 3) {
-      formatted = digits;
-    } else if (digits.length <= 4) {
-      formatted = `${digits.slice(0, 3)}-${digits.slice(3)}`;
-    } else if (digits.length <= 6) {
-      formatted = `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4)}`;
-    } else if (digits.length <= 12) {
-      formatted =
-        `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4, 6)}-${digits.slice(6)}`;
-    } else {
-      formatted =
-        `${digits.slice(0, 3)}-${digits.slice(3, 4)}-${digits.slice(4, 6)}-${digits.slice(6, 12)}-${digits.slice(12)}`;
-    }
-  
-    this.form.controls.ISBN.setValue(formatted, { emitEvent: false });
-  }
+    return value.includes('-') ? null : { noHyphen: true };
+  }  
 
 
-
-  constructor() {
-    effect(() => {
-      if (this.isEditing() && this.book()) {
-        this.form.patchValue(this.book()!);
-      }
-    });
-  }
   //VOLVER AL MENU PRINCIPAL
     goToMenu() {
       this.router.navigateByUrl('/menu');
@@ -137,11 +160,11 @@ export class BookForm {
 
   handleSubmit() {
     if (this.form.invalid) {
-      alert('El formulario es inválido');
+      alert('❌ El formulario es inválido.');
       return;
     }
 
-    if (confirm('¿Desea confirmar el libro?')) {
+    if (confirm('⚠️ ¿Desea confirmar el libro?')) {
 
       this.formSubmitted = true;        
 
@@ -150,14 +173,14 @@ export class BookForm {
       //Agregar nuevo libro
       if (!this.isEditing()) {
         this.client.addBook(book).subscribe(() => {
-          alert('¡Libro agregado con éxito!');
+          alert('✅ ¡Libro agregado con éxito!');
           this.form.reset();
           this.router.navigateByUrl('/biblioteca');
         });
       } 
       else if (this.book()) {      //Editar libro 
         this.client.updateBook(book, this.book()?.id!).subscribe((b) => {
-          alert('¡Libro modificado con éxito!');
+          alert('✅ ¡Libro modificado con éxito!');
           this.edited.emit(b);
         });
       }

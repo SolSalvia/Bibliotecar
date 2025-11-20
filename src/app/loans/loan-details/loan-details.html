@@ -13,13 +13,13 @@
         <p><strong>ID:</strong> {{ loan.id }}</p>
         <p><strong>Usuario:</strong> {{ userName() }}</p>
         <p><strong>Libro:</strong> {{ bookTitle() }}</p>
-        <p><strong>Fecha de Inicio:</strong> {{ loan.startDate }}</p>
-        <p><strong>Fecha de Fin:</strong> {{ loan.endDate }}</p>
+        <p><strong>Fecha de Inicio:</strong> {{ loan.startDate | date:'dd/MM/yyyy' }}</p>
+        <p><strong>Fecha de Fin:</strong> {{ loan.endDate | date:'dd/MM/yyyy' }}</p>
         <p><strong>Estado:</strong> {{ loan.isActive ? 'Pendiente de Devolución' : 'Finalizado' }}</p>
 
         <div class="actions">
-          <button (click)="toggleEdit()">Editar</button>
-          <button (click)="deleteLoan()" [disabled]="isEditing()">Borrar</button>
+          <button class="btn-primary" (click)="toggleEdit()">Editar</button>
+          <button class="btn-secondary" (click)="deleteLoan()" [disabled]="isEditing()">Borrar</button>
         </div>
       </section>
     </div>

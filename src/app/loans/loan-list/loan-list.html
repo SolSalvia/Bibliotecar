@@ -1,7 +1,31 @@
 <div class="wrap">
   <section class="list-card">
     <h1>Lista de Préstamos</h1>
-    @let loans = this.loans();
+
+    <div class="filter-section">
+      <h2>Búsqueda</h2>
+
+      <div class="searchbar filter-wrapper">
+        <input type="text" [formControl]="search" placeholder="🔎 Buscar por ID, Usuario o Libro..." />
+        <button class="filter-btn" (click)="toggleFilter()">🔽 Filtro</button>
+      
+        @if (showFilter) {
+          <div class="filter-menu">
+            <select
+              [value]="availabilityFilter()"
+              (change)="availabilityFilter.set($any($event.target).value)"
+            >
+              <option value="all">Todos</option>
+              <option value="Pendiente de Devolución">Pendientes de Devolución</option>
+              <option value="Finalizado">Finalizados</option>
+            </select>
+          </div>
+        }
+      </div> 
+
+    </div> 
+
+    @let loans = this.filteredLoans();
 
     @if (isLoading()) {
       <p>Cargando Préstamos...</p>
@@ -10,8 +34,10 @@
         <table>
           <thead>
             <tr>
+              <th>ID</th>
               <th>Usuario registrador</th>  
               <th>Libro prestado</th>  
+              <th>Nombre de cliente</th>
               <th>Fecha de Inicio</th>
               <th>Fecha de Fin</th>
               <th>Estado</th>
@@ -21,10 +47,12 @@
           <tbody>
             @for (loan of loans; track loan.id) {
               <tr>
+                <td>{{ loan.id }}</td>
                 <td>{{ getUserName(loan.userId) }}</td>
                 <td>{{ getBookTitle(loan.bookId) }}</td>
-                <td>{{ loan.startDate }}</td>
-                <td>{{ loan.endDate }}</td>
+                <td>{{ loan.clientName }}</td>
+                <td>{{ loan.startDate | date:'dd/MM/yyyy' }}</td>
+                <td>{{ loan.endDate | date:'dd/MM/yyyy' }}</td>
                 @if (loan.isActive) {
                   <td style="color: red;">{{ getStatusText(loan.isActive) }}</td>
                 } @else {

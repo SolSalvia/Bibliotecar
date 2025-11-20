@@ -1,11 +1,13 @@
 import { Injectable, signal, inject, computed } from '@angular/core';
 import { UserClient } from '../users/user-client'; 
 import { User } from '../users/user';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
   public readonly client = inject(UserClient);
+   private readonly router = inject(Router);
 
   // Usuario actualmente logueado (reactivo)
   private readonly activeUser = signal<User | null>(null);
@@ -15,6 +17,13 @@ export class AuthService {
   readonly users = signal<User[]>([]);
 
   constructor() {
+
+    // Recuperar el usuario logueado de localStorage
+    const savedUser = localStorage.getItem('activeUser');
+    if (savedUser) {
+      this.activeUser.set(JSON.parse(savedUser));
+    }
+
     // Cargar usuarios una sola vez al iniciar
     this.client.getUsers().subscribe(users => {
       this.users.set(users);
@@ -28,6 +37,7 @@ export class AuthService {
 
     if (found) {
       this.activeUser.set(found);
+      localStorage.setItem('activeUser', JSON.stringify(found));
       return true;
     }
 
@@ -35,8 +45,16 @@ export class AuthService {
   }
 
   logout() {
-    this.activeUser.set(null);
+    this.router.navigateByUrl('/login', { replaceUrl: true });
+    //this.activeUser.set(null);
+    //localStorage.removeItem('activeUser');
+    //Movemos esto a forceLogout para que se ejecute solo cuando el usuario confirme que quiere desloguearse con el EXIT-MENU-GUARD
   }
+
+  forceLogout() {
+    this.activeUser.set(null);
+    localStorage.removeItem('activeUser');
+  }  
 
   username() {
     return this.activeUser()?.username ?? null;

@@ -15,11 +15,11 @@
         <p><strong>ID:</strong> {{ bookReturn.id }}</p>
         <p><strong>ID de Préstamo:</strong> {{ bookReturn.loanId }}</p>
         <p><strong>Libro:</strong> {{ book ? book.title : 'Cargando...' }}</p>
-        <p><strong>Fecha de Devolución:</strong> {{ bookReturn.returnDate }}</p>
+        <p><strong>Fecha de Devolución:</strong> {{ bookReturn.returnDate | date:'dd/MM/yyyy' }}</p>
 
         <div class="actions">
-          <button (click)="toggleEdit()">Editar</button>
-          <button (click)="deleteBookReturn()" [disabled]="isEditing()">Borrar</button>
+          <button class="btn-primary" (click)="toggleEdit()">Editar</button>
+          <button class="btn-secondary" (click)="deleteBookReturn()" [disabled]="isEditing()">Borrar</button>
         </div>
       </section>
     </div>

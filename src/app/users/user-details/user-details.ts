@@ -38,9 +38,9 @@ export class UserDetails {
   }
 
   deleteUser() {
-    if (confirm('¿Desea borrar el usuario?')) {
+    if (confirm('⚠️ ¿Desea borrar el usuario?')) {
       this.client.deleteUser(this.id!).subscribe(() => {
-        alert('¡Usuario borrado con éxito!');
+        alert('✅ ¡Usuario borrado con éxito!');
         this.router.navigateByUrl('/usuarios');
       });
     }

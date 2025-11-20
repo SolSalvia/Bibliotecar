@@ -165,11 +165,11 @@ export class BookReturnForm {
   // ---- submit ----
   handleSubmit() {
     if (this.form.invalid) {
-      alert('El formulario es inválido');
+      alert('❌ El formulario es inválido.');
       return;
     }
 
-    if (!confirm('¿Desea confirmar la devolución?')) return;
+    if (!confirm('⚠️ ¿Desea confirmar la devolución?')) return;
 
     this.formSubmitted = true;
 
@@ -177,13 +177,13 @@ export class BookReturnForm {
 
     const loan = this.loans().find(l => l.id === bookReturn.loanId);
     if (!loan) {
-      alert('Préstamo no válido');
+      alert('❌ Préstamo no válido');
       return;
     }
 
     // Registrar devolución
     this.bookReturnClient.addBookReturn(bookReturn).subscribe(() => {
-      alert('¡Devolución registrada con éxito!');
+      alert('✅ ¡Devolución registrada con éxito!');
 
       // Marcar préstamo como finalizado
       this.loanClient.updateLoan({ ...loan, isActive: false }, loan.id!).subscribe();
@@ -206,6 +206,9 @@ export class BookReturnForm {
 
       this.form.reset();
       this.loanSearch = '';
+
+      this.edited.emit(bookReturn);
+      
       this.router.navigateByUrl('/devoluciones');
     });
   }

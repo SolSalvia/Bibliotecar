@@ -1,7 +1,35 @@
 <div class="wrap">
   <section class="list-card">
-    <h1>Lista de Libros disponibles</h1>
-    @let books = this.books();
+    <h1>Lista de Libros de la Biblioteca</h1>
+
+    <div class="filter-section">
+      <h2>Búsqueda</h2>
+    
+      <div class="searchbar filter-wrapper">
+        <input
+          type="text"
+          [formControl]="search"
+          placeholder=" 🔎 Buscar por cualquier atributo..."
+        />
+      
+        <button class="filter-btn" (click)="toggleFilter()">🔽 Filtro </button>
+      
+        @if (showFilter) {
+          <div class="filter-menu">
+            <select
+              [value]="availabilityFilter()"
+              (change)="availabilityFilter.set($any($event.target).value)"
+            >
+              <option value="all">Todos</option>
+              <option value="available">Disponibles</option>
+              <option value="unavailable">No disponibles</option>
+            </select>
+          </div>
+        }
+      </div>
+    </div>
+
+    @let books = this.filteredBooks();
 
     @if (isLoading()) {
       <p>Cargando Libros...</p>

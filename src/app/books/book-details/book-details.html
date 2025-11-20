@@ -27,8 +27,8 @@
         }
 
         <div class="actions">
-          <button (click)="toggleEdit()">Editar</button>
-          <button (click)="deleteBook()" [disabled]="isEditing()">Borrar</button>
+          <button class="btn-primary" (click)="toggleEdit()">Editar</button>
+          <button class="btn-secondary" (click)="deleteBook()" [disabled]="isEditing()">Borrar</button>
         </div>
       </section>
     </div>

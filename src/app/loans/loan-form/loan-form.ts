@@ -171,13 +171,13 @@ export class LoanForm {
   handleSubmit() {
     
     if (this.form.invalid) {
-      alert('El formulario es inválido');
+      alert('❌ El formulario es inválido.');
       return;
     }
 
     const activeUser = this.auth.getActiveUser()!; //Marcamos que el usuario nunca será nulo
 
-    if (confirm('¿Desea confirmar el préstamo?')) {
+    if (confirm('⚠️ ¿Desea confirmar el préstamo?')) {
 
       this.formSubmitted = true;
 
@@ -190,7 +190,7 @@ export class LoanForm {
       if (!this.isEditing()) {
         //creación de préstamo
         this.client.addLoan(loan).subscribe(() => {
-          alert('¡Préstamo agregado con éxito!');
+          alert('✅ ¡Préstamo agregado con éxito!');
           this.form.reset();
 
           //Marcar libro como no disponible
@@ -207,7 +207,7 @@ export class LoanForm {
         const previousBookId = this.loan()!.bookId;
 
         this.client.updateLoan(loan, this.loan()!.id!).subscribe((b) => {
-          alert('¡Préstamo modificado con éxito!');
+          alert('✅ ¡Préstamo modificado con éxito!');
           this.edited.emit(b);
 
           // En el caso de que se haya cambiado el libro prestado, debemos actualizar la disponibilidad de ambos libros

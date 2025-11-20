@@ -33,9 +33,9 @@ export class BookDetails {
   }
 
   deleteBook() {
-    if (confirm('Desea borrar el libro?')) {
+    if (confirm('⚠️ ¿Desea borrar el libro?')) {
       this.client.deleteBook(this.id!).subscribe(() => {
-        alert('Libro borrado con éxito');
+        alert('✅ ¡Libro borrado con éxito!');
         this.router.navigateByUrl('/biblioteca');
       });
     }

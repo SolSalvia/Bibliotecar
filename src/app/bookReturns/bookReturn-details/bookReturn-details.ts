@@ -6,11 +6,11 @@ import { BookReturnForm } from '../bookReturn-form/bookReturn-form';
 import { BookReturn } from '../bookReturn';
 import { LoanClient } from '../../loans/loan-client';
 import { UserClient } from '../../users/user-client';
-
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-bookReturn-details',
-  imports: [BookReturnForm],
+  imports: [BookReturnForm, DatePipe],
   templateUrl: './bookReturn-details.html',
   styleUrl: './bookReturn-details.css'
 })
@@ -65,35 +65,24 @@ export class BookReturnDetails {
     }
   }*/
 
- deleteBookReturn() {
+  deleteBookReturn() {
     const currentBookReturn = this.bookReturn();
     if (!currentBookReturn) return;
-
-    if (confirm('¿Desea borrar la devolución?')) {
-
-
-      //el préstamo vuelve a "Pendiente de Devolución"
+  
+    if (confirm('⚠️ ¿Desea borrar la devolución?')) {
+    
+      // El préstamo vuelve a "Pendiente de Devolución"
       this.loanClient.getLoanById(currentBookReturn.loanId!).subscribe(loan => {
         if (loan) {
-          this.loanClient.updateLoan({ ...loan, isActive: true }, loan.id!).subscribe({
-            next: () => console.log(`Préstamo con ID:"${loan.id}" vuelve a estar pendiente de devolución.`),
-            error: (err) => console.error('Error al liberar préstamo', err)
-          });
+          this.loanClient.updateLoan({ ...loan, isActive: true }, loan.id!).subscribe();
         }
       });
-
-
-      this.client.deleteBookReturn(this.id!).subscribe({
-        next: () => {
-          alert('¡Devolución borrada con éxito!');
-          this.router.navigateByUrl('/devoluciones');
-        },
-        error: (err) => {
-          console.error('Error al borrar devolución:', err);
-          alert('No se pudo borrar el devolución');
-        }
+    
+      this.client.deleteBookReturn(this.id!).subscribe(() => {
+        alert('✅ ¡Devolución borrada con éxito!');
+        this.router.navigateByUrl('/devoluciones');
       });
     }
- }
+  }
   
 }

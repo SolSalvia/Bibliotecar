@@ -67,11 +67,11 @@ export class UserForm {
 
   handleSubmit() {
     if (this.form.invalid) {
-      alert('El formulario es inválido');
+      alert('❌ El formulario es inválido.');
       return;
     }
   
-    if (confirm('¿Desea confirmar el usuario?')) {
+    if (confirm('⚠️ ¿Desea confirmar el usuario?')) {
 
       this.formSubmitted = true;
       
@@ -89,14 +89,14 @@ export class UserForm {
             this.authService.users.set(users);
           });
 
-          alert('¡Usuario agregado con éxito!');
+          alert('✅ ¡Usuario agregado con éxito!');
           this.form.reset();
           this.router.navigateByUrl('/usuarios');
 
         });
       } else if (this.user()) {
         this.client.updateUser(user, this.user()?.id!).subscribe((u) => {
-          alert('¡Usuario modificado con éxito!');
+          alert('✅ ¡Usuario modificado con éxito!');
           this.edited.emit(u);
         });
       }

@@ -39,7 +39,8 @@ nav button:active {
 }
 
 nav button.logout-button {
-  background-color: #9d1515;  
+  background-color: #fafafa;  
+  color: #d9534f;
 }
 
 /* MEDIA QUERY PARA MOVILES */

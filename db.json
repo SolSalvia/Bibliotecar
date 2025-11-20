@@ -1,20 +1,20 @@
 {
   "books": [
     {
-      "ISBN": "978‑84‑08‑31446‑2",
+      "ISBN": "978-8-40-831446-2",
       "title": "El Principito",
       "author": "Antoine de Saint-Exupéry",
-      "category": "Ficción / Infantil",
+      "category": "Infantil",
       "publicationYear": 1943,
       "synopsis": "Un niño que vive en otro planeta y sus reflexiones sobre la vida, la amistad y la responsabilidad.",
       "available": true,
       "id": "a1b2"
     },
     {
-      "ISBN": "978-0-451-52493-5",
+      "ISBN": "978-84-450-1788-3",
       "title": "1984",
       "author": "George Orwell",
-      "category": "Distopía / Ciencia ficción",
+      "category": "Ciencia Ficción",
       "publicationYear": 1949,
       "synopsis": "Winston Smith vive bajo un régimen totalitario que lo vigila todo. Reflexiona sobre la libertad, la opresión y la verdad en un mundo controlado por el Partido y el Gran Hermano.",
       "available": true,
@@ -24,17 +24,17 @@
       "ISBN": "978-0-316-76948-0",
       "title": "The Catcher in the Rye",
       "author": "J. D. Salinger",
-      "category": "Ficción / Clásico",
+      "category": "Novela",
       "publicationYear": 1951,
       "synopsis": "Historia de Holden Caulfield, un adolescente que reflexiona sobre la autenticidad, la soledad y la transición a la adultez.",
-      "available": true,
+      "available": false,
       "id": "c4d5"
     },
     {
       "ISBN": "978-84-9122-100-5",
       "title": "Las brujas",
       "author": "Roald Dahl",
-      "category": "Fantasía / Infantil",
+      "category": "Infantil",
       "publicationYear": 1983,
       "synopsis": "Un niño y su abuela descubren que hay brujas disfrazadas de mujeres normales y deben enfrentarlas.",
       "available": true,
@@ -44,7 +44,7 @@
       "ISBN": "978-0-06-112008-4",
       "title": "To Kill a Mockingbird",
       "author": "Harper Lee",
-      "category": "Ficción / Jurídica / Clásico",
+      "category": "Novela",
       "publicationYear": 1960,
       "synopsis": "A través de la inocencia de la joven Scout Finch, se aborda el racismo, la injusticia y la moral en un pequeño pueblo del sur de Estados Unidos.",
       "available": true,
@@ -54,21 +54,11 @@
       "ISBN": "978-84-9105-192-1",
       "title": "Don Quijote de la Mancha",
       "author": "Miguel de Cervantes Saavedra",
-      "category": "Ficción / Clásico",
+      "category": "Fantasía",
       "publicationYear": 1605,
       "synopsis": "El hidalgo Don Quijote pierde la razón tras leer muchos libros de caballería y sale a recorrer el mundo con su escudero Sancho Panza, buscando aventuras y justicia.",
       "available": true,
       "id": "b004"
-    },
-    {
-      "ISBN": "978-0-7432-7356-5",
-      "title": "The Great Gatsby",
-      "author": "F. Scott Fitzgerald",
-      "category": "Ficción / Clásico",
-      "publicationYear": 1925,
-      "synopsis": "En la Nueva York de los años 20, Nick Carraway narra la vida del enigmático Jay Gatsby, su amor por Daisy Buchanan y el sueño americano.",
-      "available": true,
-      "id": "b005"
     }
   ],
   "users": [
@@ -79,7 +69,7 @@
       "isAdmin": true
     },
     {
-      "id": "8e4c",
+      "id": "c706",
       "username": "test",
       "password": "test",
       "isAdmin": false
@@ -87,38 +77,17 @@
   ],
   "loans": [
     {
-      "id": "7979",
+      "id": "19be",
       "userId": "d18f",
-      "bookId": "a1b2",
-      "startDate": "2025-11-17",
-      "endDate": "2025-11-17",
+      "bookId": "b002",
+      "startDate": "2025-11-20",
+      "endDate": "2025-11-21",
       "isActive": false,
       "clientName": "Stéfano López",
       "clientEmail": "stefano.lopez.mdp@gmail.com",
       "clientPhone": "2235061211",
       "book": {
-        "ISBN": "978‑84‑08‑31446‑2",
-        "title": "El Principito",
-        "author": "Antoine de Saint-Exupéry",
-        "category": "Ficción / Infantil",
-        "publicationYear": 1943,
-        "synopsis": "Un niño que vive en otro planeta y sus reflexiones sobre la vida, la amistad y la responsabilidad.",
-        "available": false,
-        "id": "a1b2"
-      }
-    },
-    {
-      "id": "f3c4",
-      "userId": "d18f",
-      "bookId": "b002",
-      "startDate": "2025-11-17",
-      "endDate": "2025-11-17",
-      "isActive": true,
-      "clientName": "Sol Salvia",
-      "clientEmail": "solsalvia3@gmail.com",
-      "clientPhone": "2235411281",
-      "book": {
-        "ISBN": "978-0-451-52493-5",
+        "ISBN": "978-84-450-1788-3",
         "title": "1984",
         "author": "George Orwell",
         "category": "Distopía / Ciencia ficción",
@@ -127,13 +96,65 @@
         "available": false,
         "id": "b002"
       }
+    },
+    {
+      "id": "a3fd",
+      "userId": "d18f",
+      "bookId": "c4d5",
+      "startDate": "2025-11-17",
+      "endDate": "2025-11-20",
+      "isActive": false,
+      "clientName": "Stéfano López",
+      "clientEmail": "stefano.lopez.mdp@gmail.com",
+      "clientPhone": "2235061211",
+      "book": {
+        "ISBN": "978-0-316-76948-0",
+        "title": "The Catcher in the Rye",
+        "author": "J. D. Salinger",
+        "category": "Ficción / Clásico",
+        "publicationYear": 1951,
+        "synopsis": "Historia de Holden Caulfield, un adolescente que reflexiona sobre la autenticidad, la soledad y la transición a la adultez.",
+        "available": false,
+        "id": "c4d5"
+      }
+    },
+    {
+      "id": "16ae",
+      "userId": "c706",
+      "bookId": "a1b2",
+      "startDate": "2025-11-20",
+      "endDate": "2025-11-21",
+      "isActive": false,
+      "clientName": "Stéfano López",
+      "clientEmail": "stefano.lopez.mdp@gmail.com",
+      "clientPhone": "2235061211",
+      "book": {
+        "ISBN": "978-8-40-831446-2",
+        "title": "El Principito",
+        "author": "Antoine de Saint-Exupéry",
+        "category": "Infantil",
+        "publicationYear": 1943,
+        "synopsis": "Un niño que vive en otro planeta y sus reflexiones sobre la vida, la amistad y la responsabilidad.",
+        "available": false,
+        "id": "a1b2"
+      }
     }
   ],
   "bookReturns": [
     {
-      "id": "a14b",
-      "loanId": "7979",
-      "returnDate": "2025-11-17"
+      "id": "6510",
+      "loanId": "19be",
+      "returnDate": "2025-11-20"
+    },
+    {
+      "id": "a550",
+      "loanId": "a3fd",
+      "returnDate": "2025-05-01"
+    },
+    {
+      "id": "1038",
+      "loanId": "16ae",
+      "returnDate": "2025-11-20"
     }
   ]
 }

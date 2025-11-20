@@ -29,7 +29,7 @@ export class LoginComponent {
 
   login() {
     if (this.form.invalid) {
-      alert('Formulario Inválido');
+      alert('❌ Formulario Inválido.');
       return;
     }
 
@@ -38,7 +38,7 @@ export class LoginComponent {
     const ok = this.auth.login(username, password);
 
     if (!ok) {
-      alert('Usuario o contraseña incorrectos');
+      alert('❌ Usuario o contraseña incorrectos.');
       return;
     }
 

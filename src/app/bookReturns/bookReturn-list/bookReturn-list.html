@@ -2,7 +2,29 @@
   <section class="list-card">
     <h1>Lista de Devoluciones</h1>
 
-    @let bookReturns = this.bookReturns();
+    <div class="filter-section">
+
+      <h2>Búsqueda</h2>
+      <div class="searchbar">   
+        <input
+          type="text"
+          [formControl]="search"
+          placeholder=" 🔎 Buscar por ID de Devolución o Préstamo..."
+        />
+      </div>
+    
+      <div class="date-filters">
+        <label>Desde</label>
+        <input type="date" [formControl]="startDate">
+      
+        <label>Hasta</label>
+        <input type="date" [formControl]="endDate">
+        <button class="clear-btn" (click)="resetDateFilters()">Limpiar</button>
+      </div>
+    
+    </div>
+
+    @let bookReturns = this.filteredBookReturns();
 
     @if (isLoading()) {
       <p>Cargando Devoluciones...</p>
@@ -26,7 +48,7 @@
                 <td>{{ bookReturn.id }}</td>
                 <td>{{ bookReturn.loanId }}</td>
                 <td>{{ book ? book.title : 'Cargando...' }}</td>
-                <td>{{ bookReturn.returnDate }}</td>
+                <td>{{ bookReturn.returnDate | date:'dd/MM/yyyy' }}</td>
                 <td>
                   <button (click)="navigateToDetails(bookReturn.id!)">Ver detalle</button>
                 </td>
